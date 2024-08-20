@@ -4,7 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://web2-backend.vercel.app/';
+axios.defaults.baseURL = 'https://web2-server-rho.vercel.app';
 axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
