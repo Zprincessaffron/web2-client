@@ -13,6 +13,13 @@ import ArabianCuisine from './components/ArabianCuisine';
 import JapaneseCuisine from './components/JapaneseCuisine';
 import PregnantWomen from './components/PregnantWomen';
 import AiSuggestion from './components/saffronSuggestion/AiSuggestion';
+import Verification from './pages/Verification.jsx';
+import WelcomePage from './pages/WelcomePage.jsx';
+import AiCulinary from './components/saffronSuggestion/AiCulinary.jsx';
+import AiCosmetic from './components/saffronSuggestion/AiCosmetic.jsx';
+import AiMedicinal from './components/saffronSuggestion/AiMedicinal.jsx';
+import AiPregnancy from './components/saffronSuggestion/AiPregnancy.jsx';
+import InitialWelcome from './components/InitialWelcome.jsx';
 
 const App = () => {
 
@@ -20,9 +27,16 @@ const App = () => {
     <>
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path='/' element={<InitialWelcome/>}/>
+        <Route path='/verification' element={<Verification/>}/>
+        <Route path='/welcome' element={<WelcomePage/>}/>
+        <Route path="/home" element={<Home />} />
         <Route path="/use-cases" element={<UseCases />} />
         <Route path="/ai-suggestion" element={<AiSuggestion />} />
+        <Route path="/ai-culinary" element={<AiCulinary />} />
+        <Route path="/ai-cosmetic" element={<AiCosmetic />} />
+        <Route path="/ai-medicinal" element={<AiMedicinal />} />
+        <Route path="/ai-pregnancy" element={<AiPregnancy />} />
         <Route path="/culinary" element={<CulinaryUsage />} />
         <Route path="/cosmetic" element={<BeautyandSkincare />} />
         <Route path="/medicinal" element={<MedicinalUsage />} />

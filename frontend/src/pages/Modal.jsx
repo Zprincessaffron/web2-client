@@ -1,34 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
   return (
-    <motion.div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className="fixed inset-0 flex items-center justify-center z-50">
       <motion.div
-        className="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto"
-        initial={{ y: '-100vh' }}
-        animate={{ y: 0 }}
-        exit={{ y: '100vh' }}
+        className="bg-custom-gradient-7 border rounded-lg shadow-lg w-full max-h-screen overflow-auto scrollbar-custom max-w-4xl p-8"
+        initial={{ opacity: 0, y: '100vh' }}  // Start off-screen at the bottom
+        animate={{ opacity: 1, y: 0 }}        // Slide up to its position
+        exit={{ opacity: 0, y: '100vh' }}     // Slide back down when exiting
         transition={{ duration: 0.3 }}
       >
-        <h2 className="text-2xl font-bold mb-4">Coming Soon!</h2>
-        <p className="mb-4">Our saffron buying site is launching soon. Stay tuned for updates!</p>
-        <button
-          onClick={onClose}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Close
-        </button>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="md:text-3xl text-lg tracking-widest uppercase font-extrabold text-white">{title} :</h2>
+          <button
+            className="text-white text-3xl"
+            onClick={onClose}
+          >
+            &times;
+          </button>
+        </div>
+        {children}
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -1,93 +1,192 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { AiOutlineClose } from 'react-icons/ai';
+import './Scrollbar.css'; // Import the custom scrollbar CSS
+import { useLocation } from 'react-router-dom';
 
 const BeautyandSkincare = () => {
-  const [skincareData, setSkincareData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [skincareData, setSkincareData] = useState([]);
   const [error, setError] = useState(null);
-  const [expandedItemId, setExpandedItemId] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [expandedItemId, setExpandedItemId] = useState(null); // State for tracking expanded item
+  const location = useLocation();
+  const { user } = location.state || {};
 
   useEffect(() => {
-    axios.get('/api/beautyandskincare')
-      .then(response => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/beautyandskincare');
         setSkincareData(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        setError(error);
-        setLoading(false);
-      });
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const toggleItemDetails = (index) => {
-    setExpandedItemId(expandedItemId === index ? null : index);
+  const toggleItemDetails = async (item) => {
+    if (expandedItemId === item._id) {
+      setExpandedItemId(null);
+      setSelectedItem(null);
+      return;
+    }
+
+    const userId = user?.uniqueId ;
+    try {
+      await axios.post('/api/store-interaction', {
+        userId: userId,
+        itemId: item._id,
+        itemName: item.target,
+        useCase: 'Cosmetic',
+        category: 'Beauty and Skincare' // Update the category if needed
+      });
+
+      setExpandedItemId(item._id);
+      setSelectedItem(item);
+    } catch (err) {
+      console.error('Failed to store interaction:', err);
+    }
   };
 
-  if (loading) return <p className="text-gray-500 text-center mt-4">Loading...</p>;
-  if (error) return <p className="text-red-500 text-center mt-4">Error: {error.message}</p>;
+  const closeItemDetails = () => {
+    setExpandedItemId(null);
+    setSelectedItem(null);
+  };
+
+  if (error) return (
+    <motion.p
+      className="text-red-500 text-center mt-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      Error: {error}
+    </motion.p>
+  );
+  
+  if (skincareData.length === 0) return (
+    <motion.p
+      className="text-gray-500 text-center mt-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      Loading...
+    </motion.p>
+  );
 
   return (
-    <div className="bg-purple-50 min-h-screen p-8">
-      <h1 className="text-4xl font-extrabold text-center mb-8 text-purple-600">Beauty And Skincare</h1>
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {skincareData && skincareData.map((item, index) => (
+    <div className="bg-custom-gradient-2 min-h-screen p-10">
+      <h1 className="text-4xl md:text-5xl text-white font-extrabold text-center mb-8 uppercase tracking-widest">
+        Beauty and Skincare
+      </h1>
+      <hr className="mb-8" />
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {skincareData.map((item) => (
           <motion.div
-            key={index}
-            className="bg-white shadow-lg rounded-lg overflow-hidden"
+            key={item._id}
+            className="shadow-xl rounded-full overflow-hidden cursor-pointer transform hover:scale-105 transition-transform duration-500 border"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.2)" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            onClick={() => toggleItemDetails(item)}
           >
-            <div
-              className="cursor-pointer p-6"
-              onClick={() => toggleItemDetails(index)}
-            >
+            <div className="p-4 text-white">
               <motion.h2
-                className="text-2xl font-semibold mb-4 text-center text-purple-600 hover:text-purple-800 transition-colors"
+                className="text-md tracking-wider font-bold text-center transition-colors"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.5 }}
               >
-                {item.name}
+                {item.target}
               </motion.h2>
-              {expandedItemId === index && (
-                <motion.div
-                  className="mt-4"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p className="mb-4 text-gray-600">Target: {item.target}</p>
-
-                  <h3 className="text-xl font-semibold mt-4">Ingredients:</h3>
-                  <ul className="list-disc pl-5 mb-4">
-                    {item.ingredients.map((ingredient, idx) => (
-                      <li key={idx}>{ingredient.quantity} of {ingredient.name}</li>
-                    ))}
-                  </ul>
-                  
-                  <h3 className="text-xl font-semibold mt-4">Preparation:</h3>
-                  <ol className="list-decimal pl-5 mb-4">
-                    {item.preparation.map((step, idx) => (
-                      <li key={idx}>{step}</li>
-                    ))}
-                  </ol>
-                  
-                  <h3 className="text-xl font-semibold mt-4">Application:</h3>
-                  <ol className="list-decimal pl-5 mb-4">
-                    {item.application.map((step, idx) => (
-                      <li key={idx}>{step}</li>
-                    ))}
-                  </ol>
-                  
-                  <p className="text-gray-600 mt-4">Frequency: {item.frequency}</p>
-                </motion.div>
-              )}
             </div>
           </motion.div>
         ))}
       </div>
+
+      {selectedItem && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
+          <motion.div
+            className="bg-custom-gradient-2 p-10 rounded-lg shadow-2xl max-w-3xl w-full max-h-screen relative overflow-y-auto scrollbar-custom"
+            initial={{ opacity: 0, scale: 0.9, x: "50%", y: "50%" }}
+            animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, x: "50%", y: "50%" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            <button
+              className="absolute top-10 right-4 text-slate-100 hover:text-gray-200 transition-colors"
+              onClick={closeItemDetails}
+            >
+              <AiOutlineClose size={28} />
+            </button>
+            <h2 className="text-3xl text-white tracking-widest font-bold mb-3 text-center uppercase">
+              {selectedItem.target}
+            </h2>
+            <div className="max-h-[70vh] overflow-y-auto p-2 text-white scrollbar-custom">
+              <p className="font-semibold tracking-wider mb-3">{selectedItem.name} :</p>
+              <h3 className="text-2xl font-semibold tracking-wider pb-2">Ingredients:</h3>
+              <ul className="list-disc pl-3 ">
+                {selectedItem.ingredients.map((ingredient, idx) => (
+                  <motion.li
+                    key={idx}
+                    className=""
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  >
+                    {ingredient.quantity} of {ingredient.name}
+                  </motion.li>
+                ))}
+              </ul>
+
+              <h3 className="text-2xl font-semibold tracking-wider py-4">Preparation:</h3>
+              <ol className="list-decimal pl-3">
+                {selectedItem.preparation.map((step, idx) => (
+                  <motion.li
+                    key={idx}
+                    className="mb-1"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  >
+                    {step}
+                  </motion.li>
+                ))}
+              </ol>
+
+              <h3 className="text-2xl font-semibold tracking-wider py-4">Application:</h3>
+              <ol className="list-decimal pl-3">
+                {selectedItem.application.map((step, idx) => (
+                  <motion.li
+                    key={idx}
+                    className="mb-1"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  >
+                    {step}
+                  </motion.li>
+                ))}
+              </ol>
+
+              <p className="text-white mt-4"><strong>Frequency:</strong> {selectedItem.frequency}</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 };
