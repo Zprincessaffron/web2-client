@@ -53,7 +53,7 @@ const UniqueIdForm = () => {
           "OTP verified successfully! Unique ID has been sent to your email/phone."
         );
         setIsOtpVerified(true);
-        // setTimeout(window.location.reload(), 2000);
+        setTimeout(window.location.reload(), 2000);
         // Optionally handle any further actions, like registration completion
       } else {
         toast.error("Invalid OTP. Please try again.");
