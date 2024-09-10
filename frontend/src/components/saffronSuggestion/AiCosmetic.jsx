@@ -63,35 +63,44 @@ const AiCosmetic = () => {
 
   // Helper function to parse details
   const parseDetails = (details) => {
-    const lines = details.split("\n");
+    const lines = details.split("\n").filter((line) => line.trim() !== "");
+  
+    // Find indices of each section header
     const ingredientsIndex = lines.findIndex((line) =>
-      line.includes("Ingredients")
+      line.toLowerCase().includes("ingredients")
     );
     const preparationIndex = lines.findIndex((line) =>
-      line.includes("Preparation Steps")
+      line.toLowerCase().includes("preparation steps")
     );
     const applicationIndex = lines.findIndex((line) =>
-      line.includes("Application")
+      line.toLowerCase().includes("application")
     );
     const frequencyIndex = lines.findIndex((line) =>
-      line.includes("Frequency")
+      line.toLowerCase().includes("frequency")
     );
-
-    const ingredients = lines
-      .slice(ingredientsIndex + 1, preparationIndex)
-      .filter((line) => line.trim() !== "");
-    const preparationSteps = lines
-      .slice(preparationIndex + 1, applicationIndex)
-      .filter((line) => line.trim() !== "");
-    const application = lines
-      .slice(applicationIndex + 1, frequencyIndex)
-      .filter((line) => line.trim() !== "");
-    const frequency = lines
-      .slice(frequencyIndex + 1)
-      .filter((line) => line.trim() !== "");
-
+  
+    // Parse each section, ensuring the indices are valid
+    const ingredients =
+      ingredientsIndex !== -1 && preparationIndex !== -1
+        ? lines.slice(ingredientsIndex + 1, preparationIndex)
+        : [];
+  
+    const preparationSteps =
+      preparationIndex !== -1 && applicationIndex !== -1
+        ? lines.slice(preparationIndex + 1, applicationIndex)
+        : [];
+  
+    const application =
+      applicationIndex !== -1 && frequencyIndex !== -1
+        ? lines.slice(applicationIndex + 1, frequencyIndex)
+        : [];
+  
+    const frequency =
+      frequencyIndex !== -1 ? lines.slice(frequencyIndex + 1) : [];
+  
     return { ingredients, preparationSteps, application, frequency };
   };
+  
 
   const {
     ingredients = [],
@@ -198,7 +207,7 @@ const AiCosmetic = () => {
             title="Beauty Details"
           >
             <motion.div
-              className="bg-custom-gradient-7 p-8 text-white"
+              className="bg-custom-gradient-7 p-4 text-white text-sm"
               variants={slideInFromRight}
               initial="hidden"
               animate="visible"
@@ -206,7 +215,7 @@ const AiCosmetic = () => {
             >
               {ingredients.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Ingredients :
                   </h3>
                   <ul className="list-disc tracking-wider font-medium list-inside mb-6 text-white">
@@ -219,10 +228,10 @@ const AiCosmetic = () => {
 
               {preparationSteps.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Preparation Steps :
                   </h3>
-                  <ol className="mb-6 tracking-wider font-medium text-white">
+                  <ol className="mb-6 list-disc tracking-wider font-medium text-white">
                     {preparationSteps.map((step, index) => (
                       <li key={index}>{step}</li>
                     ))}
@@ -232,10 +241,10 @@ const AiCosmetic = () => {
 
               {application.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg  tracking-widest font-medium mb-4 ">
                     Application :
                   </h3>
-                  <ul className="list-disc list-inside mb-6 tracking-wider font-medium text-white">
+                  <ul className="list-disc mb-6 tracking-wider font-medium text-white">
                     {application.map((app, index) => (
                       <li key={index}>{app}</li>
                     ))}
@@ -245,10 +254,10 @@ const AiCosmetic = () => {
 
               {frequency.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg  tracking-widest font-medium mb-4 ">
                     Frequency :
                   </h3>
-                  <ul className="list-disc list-inside tracking-wider font-medium text-white">
+                  <ul className="list-disc tracking-wider font-medium text-white">
                     {frequency.map((freq, index) => (
                       <li key={index}>{freq}</li>
                     ))}

@@ -228,7 +228,7 @@ const AiPregnancy = () => {
             title="Pregnancy Details"
           >
             <motion.div
-              className="bg-custom-gradient-7 p-8 text-white"
+              className="bg-custom-gradient-7 p-4 text-sm text-white"
               variants={slideInFromRight}
               initial="hidden"
               animate="visible"
@@ -236,10 +236,10 @@ const AiPregnancy = () => {
             >
               {overview.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4">
+                  <h3 className="md:text-3xl text-md tracking-widest font-medium mb-4">
                     Overview :
                   </h3>
-                  <ul className="list-disc list-inside mb-6 tracking-wider font-medium text-white">
+                  <ul className="list-disc mb-6 tracking-wider font-medium text-white">
                     {overview.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
@@ -249,10 +249,10 @@ const AiPregnancy = () => {
 
               {dietaryRecommendations.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-md tracking-widest font-medium mb-4 ">
                     Dietary Recommendations :
                   </h3>
-                  <ul className="list-disc list-inside mb-6 tracking-wider font-medium text-white">
+                  <ul className="list-disc mb-6 tracking-wider font-medium text-white">
                     {dietaryRecommendations.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
@@ -262,10 +262,10 @@ const AiPregnancy = () => {
 
               {saffronBenefits.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-md tracking-widest font-medium mb-4 ">
                     Saffron Benefits :
                   </h3>
-                  <ul className="list-disc list-inside mb-6 tracking-wider font-medium text-white">
+                  <ul className="list-disc mb-6 tracking-wider font-medium text-white">
                     {saffronBenefits.map((benefit, index) => (
                       <li key={index}>{benefit}</li>
                     ))}
@@ -275,10 +275,10 @@ const AiPregnancy = () => {
 
               {saffronDosage.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-md tracking-widest font-medium mb-4 ">
                     Saffron Dosage :
                   </h3>
-                  <ul className="list-disc list-inside tracking-wider font-medium text-white mb-6">
+                  <ul className="list-disc tracking-wider font-medium text-white mb-6">
                     {saffronDosage.map((freq, index) => (
                       <li key={index}>{freq}</li>
                     ))}
@@ -288,10 +288,10 @@ const AiPregnancy = () => {
 
               {remedyPreparation.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4">
+                  <h3 className="md:text-3xl text-md tracking-widest font-medium mb-4">
                     Remedy Preparation :
                   </h3>
-                  <ul className="tracking-wider font-medium text-white mb-6">
+                  <ul className="tracking-wider list-disc font-medium text-white mb-6">
                     {remedyPreparation.map((freq, index) => (
                       <li key={index}>{freq}</li>
                     ))}
@@ -301,10 +301,10 @@ const AiPregnancy = () => {
 
               {applicationFrequency.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-md tracking-widest font-medium mb-4 ">
                     Application and Frequency :
                   </h3>
-                  <ul className="list-disc list-inside tracking-wider font-medium text-white mb-6">
+                  <ul className="list-disc tracking-wider font-medium text-white mb-6">
                     {applicationFrequency.map((freq, index) => (
                       <li key={index}>{freq}</li>
                     ))}
@@ -314,10 +314,10 @@ const AiPregnancy = () => {
 
               {additionalTips.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-md tracking-widest font-medium mb-4 ">
                     Additional Tips :
                   </h3>
-                  <ul className="list-disc list-inside tracking-wider font-medium text-white">
+                  <ul className="list-disc tracking-wider font-medium text-white">
                     {additionalTips.map((freq, index) => (
                       <li key={index}>{freq}</li>
                     ))}

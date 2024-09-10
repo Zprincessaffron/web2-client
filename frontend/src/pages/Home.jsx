@@ -41,7 +41,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            DISCOVER THE SAFFRON USE CASES
+            DISCOVER SAFFRON BENEFITS
           </motion.h2>
           <motion.p
             className="text-[10px] md:text-[13px] mb-8 max-w-lg mx-auto tracking-[1px]"

@@ -152,7 +152,7 @@ const AiCulinary = () => {
 
   return (
     <div
-      className="h-screen bg-custom-gradient-7 flex flex-col items-center justify-center overflow-x-hidden"
+      className="h-screen text-sm bg-custom-gradient-7 flex flex-col items-center justify-center overflow-x-hidden"
     >
       <div
         className={`relative border rounded-lg md:w-full w-[90%] max-w-4xl ${
@@ -272,7 +272,7 @@ const AiCulinary = () => {
             title="Dish Details"
           >
             <motion.div
-              className="bg-custom-gradient-7 p-8 text-white"
+              className="bg-custom-gradient-7 p-4 text-white text-sm"
               variants={slideInFromRight}
               initial="hidden"
               animate="visible"
@@ -280,10 +280,10 @@ const AiCulinary = () => {
             >
               {ingredients.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Ingredients :
                   </h3>
-                  <ul className="list-disc list-inside mb-6 tracking-wider text-white font-medium">
+                  <ul className="list-disc mb-6 tracking-wider text-white font-medium">
                     {ingredients.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
@@ -293,10 +293,10 @@ const AiCulinary = () => {
 
               {preparationSteps.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Preparation Steps :
                   </h3>
-                  <ol className="mb-6 tracking-wider text-white font-medium">
+                  <ol className="mb-6 list-disc tracking-wider text-white font-medium">
                     {preparationSteps.map((step, index) => (
                       <li key={index}>{step}</li>
                     ))}
@@ -306,10 +306,10 @@ const AiCulinary = () => {
 
               {tips.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Tips :
                   </h3>
-                  <ul className="list-disc list-inside mb-6 tracking-wider text-white font-medium">
+                  <ul className="list-disc mb-6 tracking-wider text-white font-medium">
                     {tips.map((tip, index) => (
                       <li key={index}>{tip}</li>
                     ))}

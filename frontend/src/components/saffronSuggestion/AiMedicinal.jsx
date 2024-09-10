@@ -195,7 +195,7 @@ const AiMedicinal = () => {
             title="Medicinal Details"
           >
             <motion.div
-              className="bg-custom-gradient-7 p-8 text-white"
+              className="bg-custom-gradient-7 p-3 text-white text-sm"
               variants={slideInFromRight}
               initial="hidden"
               animate="visible"
@@ -203,10 +203,10 @@ const AiMedicinal = () => {
             >
               {mechanism.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4">
                     Mechanism :
                   </h3>
-                  <ul className="list-disc tracking-wider font-medium list-inside mb-6 text-white">
+                  <ul className="list-disc tracking-wider font-medium mb-6 text-white">
                     {mechanism.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
@@ -216,10 +216,10 @@ const AiMedicinal = () => {
 
               {ingredients.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Ingredients :
                   </h3>
-                  <ul className="list-disc tracking-wider font-medium list-inside mb-6 text-white">
+                  <ul className="list-disc tracking-wider font-medium mb-6 text-white">
                     {ingredients.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
@@ -229,10 +229,10 @@ const AiMedicinal = () => {
 
               {preparationSteps.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Preparation Steps :
                   </h3>
-                  <ol className="mb-6 tracking-wider font-medium text-white">
+                  <ol className="mb-6 list-disc tracking-wider font-medium text-white">
                     {preparationSteps.map((step, index) => (
                       <li key={index}>{step}</li>
                     ))}
@@ -242,10 +242,10 @@ const AiMedicinal = () => {
 
               {application.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Application :
                   </h3>
-                  <ul className="list-disc tracking-wider font-medium list-inside mb-6 text-white">
+                  <ul className="list-disc tracking-wider font-medium mb-6 text-white">
                     {application.map((item, index) => (
                       <li key={index}>{item}</li>
                     ))}
@@ -255,7 +255,7 @@ const AiMedicinal = () => {
 
               {frequency.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Frequency :
                   </h3>
                   <p className="text-white tracking-wider font-medium mb-6">{frequency.join(" ")}</p>
@@ -264,7 +264,7 @@ const AiMedicinal = () => {
 
               {saffronDosage.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Saffron Dosage :
                   </h3>
                   <p className="text-white tracking-wider font-medium mb-6">{saffronDosage.join(" ")}</p>
@@ -273,10 +273,10 @@ const AiMedicinal = () => {
 
               {additionalTips.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
                     Additional Tips :
                   </h3>
-                  <ul className="list-disc tracking-wider font-medium list-inside mb-6 text-white">
+                  <ul className="list-disc tracking-wider font-medium mb-6 text-white">
                     {additionalTips.map((tip, index) => (
                       <li key={index}>{tip}</li>
                     ))}

@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const apiUrl = 'https://web2-server-rho.vercel.app'; // Update with your backend URL
+// const apiUrl = 'http://localhost:5000'; // Update with your backend URL
 
 export const getCulinaryDetails = async (dish) => {
     try {
