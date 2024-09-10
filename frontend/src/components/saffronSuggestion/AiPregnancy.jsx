@@ -143,17 +143,17 @@ const AiPregnancy = () => {
 
   return (
     <div
-      className="h-screen bg-custom-gradient-7 flex flex-col items-center justify-center"
+      className="h-screen bg-custom-gradient-7 flex flex-col items-center justify-center overflow-x-hidden"
     >
       <div
-        className={`relative border rounded-lg shadow-xl w-full max-w-4xl ${
-          loading ? "border-none shadow-none pointer-events-none" : ""
+        className={`relative border rounded-lg md:w-full w-[90%] max-w-4xl ${
+          loading ? "border-none shadow-none pointer-events-none" : "shadow-xl"
         }`}
       >
         {loading && (
           <div className="absolute inset-0 bg-custom-gradient-7 text-white bg-opacity-100 rounded-lg flex justify-center items-center z-50">
             <FaSpinner className="animate-spin text-5xl text-white" />
-            <p className="text-white text-2xl tracking-[7px] font-bold ml-4">Loading...</p>
+            <p className="text-white text-2xl tracking-[7px] font-medium ml-4">Loading...</p>
           </div>
         )}
 
@@ -165,7 +165,7 @@ const AiPregnancy = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <motion.h1
-            className="text-5xl tracking-[10px] font-extrabold mb-8 text-center text-white"
+            className="md:text-5xl text-2xl tracking-[10px] font-medium mb-8 text-center text-white"
             variants={slideInFromRight}
             initial="hidden"
             animate="visible"
@@ -194,7 +194,7 @@ const AiPregnancy = () => {
                   value={searchQuery}
                   onChange={handleInputChange}
                   placeholder="How can I assist you with your pregnancy condition ?"
-                  className="border font-semibold bg-custom-gradient-7 text-white tracking-wider py-4 px-8 rounded-lg w-full shadow-md focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
+                  className="border font-medium text-sm bg-custom-gradient-7 text-white tracking-wider py-4 px-8 rounded-lg w-full shadow-md focus:outline-none focus:ring-2 focus:ring-white placeholder-slate-400"
                   disabled={loading}
                 />
                 <FaMicrophone
@@ -206,7 +206,7 @@ const AiPregnancy = () => {
               </motion.div>
               <motion.button
                 onClick={handleGetDetails}
-                className=" hover:bg-white hover:text-purple-950 font-semibold tracking-widest border text-white px-8 py-2 rounded-lg shadow-md transition"
+                className=" hover:bg-white hover:text-purple-950 font-medium tracking-widest border text-white px-8 py-2 text-sm rounded-lg shadow-md transition"
                 disabled={loading || !searchQuery}
                 variants={slideInFromRight}
                 initial="hidden"
@@ -236,7 +236,7 @@ const AiPregnancy = () => {
             >
               {overview.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4">
                     Overview :
                   </h3>
                   <ul className="list-disc list-inside mb-6 tracking-wider font-medium text-white">
@@ -249,7 +249,7 @@ const AiPregnancy = () => {
 
               {dietaryRecommendations.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Dietary Recommendations :
                   </h3>
                   <ul className="list-disc list-inside mb-6 tracking-wider font-medium text-white">
@@ -262,7 +262,7 @@ const AiPregnancy = () => {
 
               {saffronBenefits.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Saffron Benefits :
                   </h3>
                   <ul className="list-disc list-inside mb-6 tracking-wider font-medium text-white">
@@ -275,7 +275,7 @@ const AiPregnancy = () => {
 
               {saffronDosage.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Saffron Dosage :
                   </h3>
                   <ul className="list-disc list-inside tracking-wider font-medium text-white mb-6">
@@ -288,7 +288,7 @@ const AiPregnancy = () => {
 
               {remedyPreparation.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4">
                     Remedy Preparation :
                   </h3>
                   <ul className="tracking-wider font-medium text-white mb-6">
@@ -301,7 +301,7 @@ const AiPregnancy = () => {
 
               {applicationFrequency.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Application and Frequency :
                   </h3>
                   <ul className="list-disc list-inside tracking-wider font-medium text-white mb-6">
@@ -314,7 +314,7 @@ const AiPregnancy = () => {
 
               {additionalTips.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Additional Tips :
                   </h3>
                   <ul className="list-disc list-inside tracking-wider font-medium text-white">

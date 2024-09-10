@@ -114,17 +114,17 @@ const AiCosmetic = () => {
 
   return (
     <div
-      className="h-screen bg-custom-gradient-7 flex flex-col items-center justify-center"
+      className="h-screen bg-custom-gradient-7 flex flex-col items-center justify-center overflow-x-hidden"
     >
       <div
-        className={`relative shadow-xl rounded-lg border w-full max-w-4xl ${
-          loading ? "border-none shadow-none pointer-events-none" : ""
+        className={`relative  rounded-lg border md:w-full w-[90%] max-w-4xl ${
+          loading ? "border-none shadow-none pointer-events-none" : "shadow-xl"
         }`}
       >
         {loading && (
           <div className="absolute inset-0 bg-custom-gradient-7 text-white bg-opacity-100 rounded-lg flex justify-center items-center z-50">
             <FaSpinner className="animate-spin text-5xl text-white" />
-            <p className="text-white text-2xl tracking-[7px] font-bold ml-4">Loading...</p>
+            <p className="text-white text-2xl tracking-[7px] font-medium ml-4">Loading...</p>
           </div>
         )}
 
@@ -136,7 +136,7 @@ const AiCosmetic = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <motion.h1
-            className="md:text-5xl text-2xl tracking-[6px] font-bold mb-8 text-center text-white"
+            className="md:text-5xl text-2xl tracking-[6px] font-medium mb-8 text-center text-white"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -164,7 +164,7 @@ const AiCosmetic = () => {
                   value={searchQuery}
                   onChange={handleInputChange}
                   placeholder="Enter your skin concern"
-                  className="border font-semibold bg-custom-gradient-7 text-white tracking-wider py-4 px-8 rounded-lg w-full shadow-md focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
+                  className="border text-sm font-medium bg-custom-gradient-7 text-white tracking-wider py-4 px-8 rounded-lg w-full shadow-md focus:outline-none focus:ring-2 focus:ring-white placeholder-slate-400"
                   disabled={loading}
                 />
                 <FaMicrophone
@@ -176,7 +176,7 @@ const AiCosmetic = () => {
               </motion.div>
               <motion.button
                 onClick={handleGetDetails}
-                className=" hover:bg-white hover:text-purple-950 font-semibold tracking-widest border text-white px-8 py-2 rounded-lg shadow-md transition"
+                className=" hover:bg-white hover:text-purple-950 font-medium tracking-widest border text-white text-sm px-8 py-2 rounded-lg shadow-md transition"
                 disabled={loading || !searchQuery}
                 variants={slideInFromRight}
                 initial="hidden"
@@ -206,7 +206,7 @@ const AiCosmetic = () => {
             >
               {ingredients.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Ingredients :
                   </h3>
                   <ul className="list-disc tracking-wider font-medium list-inside mb-6 text-white">
@@ -219,7 +219,7 @@ const AiCosmetic = () => {
 
               {preparationSteps.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Preparation Steps :
                   </h3>
                   <ol className="mb-6 tracking-wider font-medium text-white">
@@ -232,7 +232,7 @@ const AiCosmetic = () => {
 
               {application.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Application :
                   </h3>
                   <ul className="list-disc list-inside mb-6 tracking-wider font-medium text-white">
@@ -245,7 +245,7 @@ const AiCosmetic = () => {
 
               {frequency.length > 0 && (
                 <>
-                  <h3 className="text-3xl tracking-widest font-semibold mb-4 ">
+                  <h3 className="text-3xl tracking-widest font-medium mb-4 ">
                     Frequency :
                   </h3>
                   <ul className="list-disc list-inside tracking-wider font-medium text-white">

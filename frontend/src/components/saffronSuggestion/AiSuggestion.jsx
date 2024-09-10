@@ -61,7 +61,7 @@ const AiSuggestion = () => {
       >
         <div className="relative z-10 text-center px-6 md:px-12">
           <motion.h2
-            className="text-3xl md:text-6xl uppercase font-extrabold tracking-[15px] leading-tight mb-5"
+            className="text-3xl md:text-6xl uppercase font-medium tracking-[15px] leading-tight mb-5"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -69,7 +69,7 @@ const AiSuggestion = () => {
             Saffron AI Suggestion
           </motion.h2>
           <motion.p
-            className="font-bold tracking-widest md:text-md mb-8 max-w-lg mx-auto"
+            className="font-medium tracking-widest md:text-md text-sm mb-8 max-w-lg mx-auto"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
@@ -91,7 +91,7 @@ const AiSuggestion = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link to={`/ai-${option.toLowerCase()}`} state={{user}}>
-                    <p className="text-md tracking-widest font-semibold">{option}</p>
+                    <p className="text-md tracking-widest font-medium">{option}</p>
                   </Link>
                 </motion.div>
               ))}

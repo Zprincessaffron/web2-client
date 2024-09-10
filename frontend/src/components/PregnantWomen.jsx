@@ -82,7 +82,7 @@ const RecipeDisplay = () => {
 
   return (
     <div className="bg-custom-gradient-14 min-h-screen p-10">
-      <h1 className="text-4xl md:text-5xl text-white font-extrabold text-center mb-8 uppercase tracking-widest">
+      <h1 className="text-2xl md:text-5xl text-white font-medium text-center mb-8 uppercase tracking-widest">
         Pregnant Women Usage
       </h1>
       <hr className="mb-8" />
@@ -100,7 +100,7 @@ const RecipeDisplay = () => {
           >
             <div className="p-4 text-white">
               <motion.h2
-                className="text-md tracking-wider font-bold text-center transition-colors"
+                className="text-sm tracking-wider font-medium text-center transition-colors"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -133,7 +133,7 @@ const RecipeDisplay = () => {
             >
               <AiOutlineClose size={28} />
             </button>
-            <h2 className="text-3xl text-white tracking-widest font-bold mb-8 text-center uppercase">
+            <h2 className="md:text-3xl text-md text-white tracking-widest font-medium mb-4 text-center uppercase">
               {selectedRecipe.title}
             </h2>
             <div className="max-h-[70vh] overflow-y-auto p-4 text-white scrollbar-custom">
@@ -146,30 +146,33 @@ const RecipeDisplay = () => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5, delay: recipeIndex * 0.1 }}
                 >
-                  <h3 className="text-2xl font-semibold tracking-wider pb-2">
+                  <h3 className="md:text-2xl text-lg font-medium tracking-wider pb-2">
                     {recipe.name} :
                   </h3>
                   <div className="tracking-wider mb-4">
-                    <strong className="font-semibold">Ingredients:</strong>
-                    <ul className="list-disc pl-5">
+                    <strong className="md:text-2xl text-lg tracking-widest font-medium my-3">Ingredients:</strong>
+                    <ul className="list-disc text-sm pl-5">
                       {recipe.ingredients.map((ingredient, i) => (
                         <li key={i}>{ingredient}</li>
                       ))}
                     </ul>
                   </div>
                   <div className="tracking-wide mb-4">
-                    <strong className="font-semibold">Preparation:</strong>
-                    <ol className="list-decimal pl-5">
+                    <strong className="md:text-2xl text-lg tracking-widest font-medium my-3">Preparation:</strong>
+                    <ol className="list-disc text-sm pl-5">
                       {recipe.preparation.map((step, i) => (
                         <li key={i}>{step}</li>
                       ))}
                     </ol>
                   </div>
-                  <p className="tracking-wide mb-4">
-                    <strong className="font-semibold">Consumption:</strong> {recipe.consumption}
+                  <p className="tracking-widest mb-4 text-sm">
+                    <strong className="font-medium md:text-2xl text-lg">Consumption:</strong> {recipe.consumption}
                   </p>
-                  <p className="tracking-wide">
-                    <strong className="font-semibold">Frequency:</strong> {recipe.frequency}
+                  <p className="tracking-widest mb-4 text-sm">
+                    <strong className="font-medium md:text-2xl text-lg">Frequency:</strong> {recipe.frequency}
+                  </p>
+                  <p className="tracking-widest text-sm">
+                    <strong className="font-medium md:text-2xl text-lg">Caution:</strong> <br /> While saffron is generally considered safe in moderate amounts, excessive consumption may not be advisable during pregnancy. It is crucial to follow recommended guidelines and consult your healthcare provider to ensure saffron is appropriate for your individual needs.
                   </p>
                 </motion.div>
               ))}

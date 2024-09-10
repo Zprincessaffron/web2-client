@@ -74,7 +74,7 @@ const EuropeanCuisine = () => {
 
   return (
     <div className="bg-custom-gradient-4 min-h-screen p-10">
-      <h1 className="text-4xl md:text-5xl text-white font-extrabold text-center mb-8 uppercase tracking-widest">
+      <h1 className="text-2xl md:text-5xl text-white font-medium text-center mb-8 uppercase tracking-widest">
         European Cuisine
       </h1>
       <hr className="mb-8" />
@@ -91,7 +91,7 @@ const EuropeanCuisine = () => {
           >
             <div className="p-4 text-white">
               <motion.h2
-                className="text-md tracking-wider font-bold text-center transition-colors"
+                className="text-sm tracking-wider font-medium text-center transition-colors"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -124,12 +124,12 @@ const EuropeanCuisine = () => {
             >
               <AiOutlineClose size={28} />
             </button>
-            <h2 className="text-3xl text-white tracking-widest font-bold mb-8 text-center uppercase">
+            <h2 className="md:text-3xl text-md text-white tracking-widest font-medium mb-4 text-center uppercase">
               {selectedRecipe.name}
             </h2>
             <div className="max-h-[70vh] overflow-y-auto p-4 text-white scrollbar-custom">
-              <h3 className="text-xl tracking-wider font-semibold my-2">Ingredients :</h3>
-              <ul className="list-disc pl-5 mb-4">
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-2">Ingredients :</h3>
+              <ul className="list-disc text-sm pl-5 mb-4">
                 {Array.isArray(selectedRecipe.ingredients) ? (
                   selectedRecipe.ingredients.map((item, i) => (
                     <motion.li
@@ -146,7 +146,7 @@ const EuropeanCuisine = () => {
                   Object.entries(selectedRecipe.ingredients).map(([section, items]) => (
                     <motion.div key={section} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
                       <strong>{section.charAt(0).toUpperCase() + section.slice(1)}:</strong>
-                      <ul className="pl-5">
+                      <ul className="pl-5 list-disc">
                         {items.map((item, i) => (
                           <motion.li key={i} className="mb-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: i * 0.1 }}>
                             {item}
@@ -157,8 +157,8 @@ const EuropeanCuisine = () => {
                   ))
                 )}
               </ul>
-              <h3 className="text-xl tracking-wider font-semibold my-2">Instructions :</h3>
-              <ol className="list-decimal pl-5 mb-4">
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-3">Instructions :</h3>
+              <ol className="list-disc text-sm pl-5 mb-4">
                 {selectedRecipe.instructions.map((step, i) => (
                   <motion.li key={i} className="mb-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: i * 0.1 }}>
                     {step}
@@ -167,8 +167,8 @@ const EuropeanCuisine = () => {
               </ol>
               {selectedRecipe.tips?.length > 0 && (
                 <>
-                  <h3 className="text-xl tracking-wider font-semibold my-2">Tips :</h3>
-                  <ul className="list-disc pl-5 mb-4">
+                  <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-3">Tips :</h3>
+                  <ul className="list-disc text-sm pl-5 mb-4">
                     {selectedRecipe.tips.map((tip, i) => (
                       <motion.li key={i} className="mb-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: i * 0.1 }}>
                         {tip}
@@ -179,8 +179,8 @@ const EuropeanCuisine = () => {
               )}
               {selectedRecipe.variations?.length > 0 && (
                 <>
-                  <h3 className="text-xl tracking-wider font-semibold my-2">Variations :</h3>
-                  <ul className="list-disc pl-5 mb-4">
+                  <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-3">Variations :</h3>
+                  <ul className="list-disc text-sm pl-5 mb-4">
                     {selectedRecipe.variations.map((variation, i) => (
                       <motion.li key={i} className="mb-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: i * 0.1 }}>
                         {variation}
@@ -189,9 +189,9 @@ const EuropeanCuisine = () => {
                   </ul>
                 </>
               )}
-              <p className="mt-4 tracking-wider">
-                <strong>Preparation Time :</strong> {selectedRecipe.preparationTime?.active} (Active) + {selectedRecipe.preparationTime?.cooking} (Cooking) = {selectedRecipe.preparationTime?.total} (Total)
-              </p>
+              {/* <p className="mt-4 text-sm tracking-wider">
+                <strong className='md:text-2xl text-lg'>Preparation Time :</strong> {selectedRecipe.preparationTime?.active} (Active) + {selectedRecipe.preparationTime?.cooking} (Cooking) = {selectedRecipe.preparationTime?.total} (Total)
+              </p> */}
             </div>
           </motion.div>
         </motion.div>

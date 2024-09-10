@@ -153,7 +153,7 @@ const UniqueIdForm = () => {
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0 }}
-          // className="text-3xl uppercase md:text-5xl lg:text-6xl font-extrabold tracking-wide md:tracking-[10px] text-white text-shadow-glow text-center"
+          // className="text-3xl uppercase md:text-5xl lg:text-6xl font-medium tracking-wide md:tracking-[10px] text-white text-shadow-glow text-center"
         >
           <ToastContainer />
           <AnimatePresence mode="wait">
@@ -168,14 +168,14 @@ const UniqueIdForm = () => {
               <div className="w-full max-w-2xl p-6 bg-white bg-opacity-90 shadow-lg rounded-lg">
                 {!isRegistering ? (
                   <>
-                    <h2 className="text-2xl font-extrabold tracking-wider text-center text-gray-800 mb-4">
+                    <h2 className="text-2xl font-medium tracking-wider text-center text-gray-800 mb-4">
                       Verify Your Unique ID
                     </h2>
                     <form onSubmit={handleSubmitVerification}>
                       <div className="relative mb-4">
                         <label
                           htmlFor="uniqueId"
-                          className="block text-sm font-bold tracking-wider text-gray-700"
+                          className="block text-sm font-medium tracking-wider text-gray-700"
                         >
                           Enter Unique ID
                         </label>
@@ -191,7 +191,7 @@ const UniqueIdForm = () => {
                       </div>
                       <button
                         type="submit"
-                        className="w-full tracking-widest bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:shadow-lg transform transition duration-300 hover:-translate-y-1"
+                        className="w-full tracking-widest bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 rounded-full font-medium shadow-md hover:shadow-lg transform transition duration-300 hover:-translate-y-1"
                       >
                         Verify
                       </button>
@@ -200,7 +200,7 @@ const UniqueIdForm = () => {
                       Don’t have a Unique ID?{" "}
                       <button
                         onClick={() => setIsRegistering(true)}
-                        className="text-purple-600 tracking-wider hover:text-purple-700 font-bold rounded-full"
+                        className="text-purple-600 tracking-wider hover:text-purple-700 font-medium rounded-full"
                       >
                         Register
                       </button>
@@ -208,14 +208,14 @@ const UniqueIdForm = () => {
                   </>
                 ) : isOtpSent ? (
                   <>
-                    <h2 className="text-2xl font-extrabold text-center tracking-widest text-gray-800 mb-4">
+                    <h2 className="text-2xl font-medium text-center tracking-widest text-gray-800 mb-4">
                       Verify OTP
                     </h2>
                     <form onSubmit={handleSubmitOtp}>
                       <div className="relative mb-4">
                         <label
                           htmlFor="otp"
-                          className="block text-sm font-bold tracking-wider text-gray-700"
+                          className="block text-sm font-medium tracking-wider text-gray-700"
                         >
                           Enter OTP
                         </label>
@@ -231,7 +231,7 @@ const UniqueIdForm = () => {
                       </div>
                       <button
                         type="submit"
-                        className="w-full tracking-widest bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:shadow-lg transform transition duration-300 hover:-translate-y-1"
+                        className="w-full tracking-widest bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 rounded-full font-medium shadow-md hover:shadow-lg transform transition duration-300 hover:-translate-y-1"
                       >
                         Verify OTP
                       </button>
@@ -239,7 +239,7 @@ const UniqueIdForm = () => {
                     <p className="mt-4 text-center tracking-wider text-gray-600">
                       <button
                         onClick={() => setIsRegistering(false)}
-                        className="text-purple-600 tracking-wider hover:text-purple-700 font-bold rounded-full"
+                        className="text-purple-600 tracking-wider hover:text-purple-700 font-medium rounded-full"
                       >
                         {"<-"} Click to verify UniqueID
                       </button>
@@ -247,7 +247,7 @@ const UniqueIdForm = () => {
                   </>
                 ) : (
                   <>
-                    <h2 className="text-2xl font-extrabold text-center tracking-widest text-gray-800 mb-4">
+                    <h2 className="text-2xl font-medium text-center tracking-widest text-gray-800 mb-4">
                       Register
                     </h2>
                     <form
@@ -257,7 +257,7 @@ const UniqueIdForm = () => {
                       <div className="relative mb-4">
                         <label
                           htmlFor="name"
-                          className="block text-sm tracking-wider font-bold text-gray-700"
+                          className="block text-sm tracking-wider font-medium text-gray-700"
                         >
                           Name
                         </label>
@@ -274,7 +274,7 @@ const UniqueIdForm = () => {
                       <div className="relative mb-4">
                         <label
                           htmlFor="email"
-                          className="block text-sm tracking-wider font-bold text-gray-700"
+                          className="block text-sm tracking-wider font-medium text-gray-700"
                         >
                           Email
                         </label>
@@ -287,13 +287,13 @@ const UniqueIdForm = () => {
                           placeholder="Your Email Address"
                         />
                       </div>
-                      <div className="text-sm tracking-wider font-bold text-gray-700 text-center">
+                      <div className="text-sm tracking-wider font-medium text-gray-700 text-center">
                         - or -
                       </div>
                       <div className="relative mb-4">
                         <label
                           htmlFor="phone"
-                          className="block text-sm tracking-wider font-bold text-gray-700"
+                          className="block text-sm tracking-wider font-medium text-gray-700"
                         >
                           Phone
                         </label>
@@ -309,7 +309,7 @@ const UniqueIdForm = () => {
                       <div className="relative mb-4">
                         <label
                           htmlFor="password"
-                          className="block text-sm tracking-wider font-bold text-gray-700"
+                          className="block text-sm tracking-wider font-medium text-gray-700"
                         >
                           Password
                         </label>
@@ -326,7 +326,7 @@ const UniqueIdForm = () => {
                       <div className="relative mb-4">
                         <label
                           htmlFor="purchasedSite"
-                          className="block text-sm tracking-wider font-bold text-gray-700"
+                          className="block text-sm tracking-wider font-medium text-gray-700"
                         >
                           Where did you purchase your saffron?
                         </label>
@@ -342,14 +342,14 @@ const UniqueIdForm = () => {
                       </div>
                       <button
                         type="submit"
-                        className="w-full tracking-widest bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:shadow-lg transform transition duration-300 hover:-translate-y-1"
+                        className="w-full tracking-widest bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 rounded-full font-medium shadow-md hover:shadow-lg transform transition duration-300 hover:-translate-y-1"
                       >
                         Register
                       </button>
                       <p className="mt-4 text-center tracking-wider text-gray-600">
                         <button
                           onClick={() => setIsRegistering(false)}
-                          className="text-purple-600 tracking-wider hover:text-purple-700 font-bold rounded-full"
+                          className="text-purple-600 tracking-wider hover:text-purple-700 font-medium rounded-full"
                         >
                           {"<-"} Back to verify
                         </button>

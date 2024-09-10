@@ -14,7 +14,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
         transition={{ duration: 0.3 }}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="md:text-3xl text-lg tracking-widest uppercase font-extrabold text-white">{title} :</h2>
+          <h2 className="md:text-3xl text-lg tracking-widest uppercase font-medium text-white">{title} :</h2>
           <button
             className="text-white text-3xl"
             onClick={onClose}

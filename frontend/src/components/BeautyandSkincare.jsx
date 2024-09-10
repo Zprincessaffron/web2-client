@@ -79,7 +79,7 @@ const BeautyandSkincare = () => {
 
   return (
     <div className="bg-custom-gradient-2 min-h-screen p-10">
-      <h1 className="text-4xl md:text-5xl text-white font-extrabold text-center mb-8 uppercase tracking-widest">
+      <h1 className="text-2xl md:text-5xl text-white font-medium text-center mb-8 uppercase tracking-widest">
         Beauty and Skincare
       </h1>
       <hr className="mb-8" />
@@ -96,7 +96,7 @@ const BeautyandSkincare = () => {
           >
             <div className="p-4 text-white">
               <motion.h2
-                className="text-md tracking-wider font-bold text-center transition-colors"
+                className="text-sm tracking-wider font-medium text-center transition-colors"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -129,13 +129,13 @@ const BeautyandSkincare = () => {
             >
               <AiOutlineClose size={28} />
             </button>
-            <h2 className="text-3xl text-white tracking-widest font-bold mb-3 text-center uppercase">
+            <h2 className="md:text-3xl text-md text-white tracking-widest font-medium mb-3 text-center uppercase">
               {selectedItem.target}
             </h2>
             <div className="max-h-[70vh] overflow-y-auto p-2 text-white scrollbar-custom">
-              <p className="font-semibold tracking-wider mb-3">{selectedItem.name} :</p>
-              <h3 className="text-2xl font-semibold tracking-wider pb-2">Ingredients:</h3>
-              <ul className="list-disc pl-3 ">
+              <p className="font-medium tracking-wider mb-3">{selectedItem.name} :</p>
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-3">Ingredients:</h3>
+              <ul className="list-disc text-sm pl-3 ">
                 {selectedItem.ingredients.map((ingredient, idx) => (
                   <motion.li
                     key={idx}
@@ -150,8 +150,8 @@ const BeautyandSkincare = () => {
                 ))}
               </ul>
 
-              <h3 className="text-2xl font-semibold tracking-wider py-4">Preparation:</h3>
-              <ol className="list-decimal pl-3">
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium my-3">Preparation:</h3>
+              <ol className="list-disc text-sm pl-3">
                 {selectedItem.preparation.map((step, idx) => (
                   <motion.li
                     key={idx}
@@ -166,8 +166,8 @@ const BeautyandSkincare = () => {
                 ))}
               </ol>
 
-              <h3 className="text-2xl font-semibold tracking-wider py-4">Application:</h3>
-              <ol className="list-decimal pl-3">
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium my-3">Application:</h3>
+              <ol className="list-disc text-sm pl-3">
                 {selectedItem.application.map((step, idx) => (
                   <motion.li
                     key={idx}
@@ -182,7 +182,7 @@ const BeautyandSkincare = () => {
                 ))}
               </ol>
 
-              <p className="text-white mt-4"><strong>Frequency:</strong> {selectedItem.frequency}</p>
+              <p className="text-white list-disc text-sm mt-4"><strong className='md:text-2xl text-lg pb-3'>Frequency:</strong> <br /> <li className='pt-2'>{selectedItem.frequency}</li></p>
             </div>
           </motion.div>
         </motion.div>

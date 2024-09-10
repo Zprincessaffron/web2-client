@@ -84,7 +84,7 @@ const MedicinalUsage = () => {
 
   return (
     <div className="bg-custom-gradient min-h-screen p-10">
-      <h1 className="text-4xl md:text-5xl text-white font-extrabold text-center mb-8 uppercase tracking-widest">
+      <h1 className="text-3xl md:text-5xl text-white font-medium text-center mb-8 uppercase tracking-widest">
         Medicinal Usage
       </h1>
       <hr className="mb-8" />
@@ -102,7 +102,7 @@ const MedicinalUsage = () => {
           >
             <div className="p-4 text-white">
               <motion.h2
-                className="text-md tracking-wider font-bold text-center transition-colors"
+                className="text-sm tracking-wider font-medium text-center transition-colors"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -135,12 +135,12 @@ const MedicinalUsage = () => {
             >
               <AiOutlineClose size={28} />
             </button>
-            <h2 className="text-3xl text-white tracking-widest font-bold mb-8 text-center uppercase">
+            <h2 className="md:text-3xl text-md text-white tracking-widest font-medium mb-8 text-center uppercase">
               {selectedUsage.condition}
             </h2>
             <div className="max-h-[70vh] overflow-y-auto p-4 text-white scrollbar-custom">
-              <p className="font-semibold tracking-wider mb-8">{selectedUsage.mechanism}</p>
-              <ul className="list-disc pl-3 space-y-8">
+              <p className="tracking-wider mb-8">{selectedUsage.mechanism}</p>
+              <ul className="list-disc text-sm pl-3 space-y-8">
                 {selectedUsage.usage.map((method, idx) => (
                   <motion.li
                     key={idx}
@@ -150,11 +150,11 @@ const MedicinalUsage = () => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
-                    <h3 className="text-2xl font-semibold tracking-wider pb-2">{method.method} :</h3>
-                    <p className="tracking-wider">
+                    <h3 className="md:text-2xl text-lg tracking-widest font-medium pb-2">{method.method} :</h3>
+                    <p className="tracking-wider pb-2">
                       <strong className="tracking-wider">Ingredients :</strong> {method.ingredients.join(', ')}
                     </p>
-                    <p className="tracking-wide">
+                    <p className="tracking-wide pb-2">
                       <strong className="tracking-wider">Preparation :</strong> {method.preparation}
                     </p>
                     <p className="tracking-wide">

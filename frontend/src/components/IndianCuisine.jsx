@@ -80,7 +80,7 @@ const IndianCuisine = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <h4 className="font-semibold">{key}</h4>
+            <h4 className="font-medium">{key}</h4>
             <ul className="list-disc pl-5">
               {Array.isArray(value) ? (
                 value.map((item, j) => (
@@ -114,7 +114,7 @@ const IndianCuisine = () => {
     if (!instructions) return <p>No instructions data available</p>;
 
     return Array.isArray(instructions) ? (
-      <ol className="list-decimal pl-5 mb-4">
+      <ol className="list-disc pl-5 text-sm mb-4">
         {instructions.map((instruction, i) => {
           if (typeof instruction === "string") {
             return (
@@ -136,7 +136,7 @@ const IndianCuisine = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                <h5 className="font-semibold">
+                <h5 className="font-medium">
                   {instruction.step || `Step ${i + 1}`}
                 </h5>
                 <ul className="list-disc pl-5">
@@ -251,7 +251,7 @@ const IndianCuisine = () => {
 
   return (
     <div className="bg-custom-gradient-9 min-h-screen p-10">
-      <h1 className="text-4xl md:text-5xl text-white font-extrabold text-center mb-8 uppercase tracking-widest">
+      <h1 className="text-3xl md:text-5xl text-white font-medium text-center mb-8 uppercase tracking-widest">
         Indian Cuisine
       </h1>
       <hr className="mb-8" />
@@ -271,7 +271,7 @@ const IndianCuisine = () => {
           >
             <div className="p-4 text-white">
               <motion.h2
-                className="text-sm tracking-wider font-semibold text-center transition-colors"
+                className="text-sm tracking-wider font-medium text-center transition-colors"
                 initial={{ y: -20 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -305,37 +305,37 @@ const IndianCuisine = () => {
               <AiOutlineClose size={28} />
             </button>
             <div className="mb-6">
-              <h2 className="text-3xl text-white tracking-wider font-semibold mb-4 text-center uppercase">
+              <h2 className="md:text-3xl text-md text-white tracking-widest font-medium mb-4 text-center uppercase">
                 {recipes.find((recipe) => recipe._id === expandedRecipeId).name}
               </h2>
-              <h3 className="text-2xl tracking-wider font-semibold mb-3">
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-3">
                 Ingredients :
               </h3>
-              <ul className="list-disc pl-5 mb-4">
+              <ul className="list-disc text-sm pl-5 mb-4">
                 {renderIngredients(
                   recipes.find((recipe) => recipe._id === expandedRecipeId)
                     .ingredients
                 )}
               </ul>
-              <h3 className="text-2xl tracking-wider font-semibold mb-3">
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-3">
                 Instructions :
               </h3>
               {renderInstructions(
                 recipes.find((recipe) => recipe._id === expandedRecipeId)
                   .instructions
               )}
-              <h3 className="text-2xl tracking-wider font-semibold mb-3">
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-3">
                 Tips :
               </h3>
-              <ul className="list-disc pl-5 mb-4">
+              <ul className="list-disc pl-5 text-sm  mb-4">
                 {renderTips(
                   recipes.find((recipe) => recipe._id === expandedRecipeId).tips
                 )}
               </ul>
-              <h3 className="text-2xl tracking-wider font-semibold mb-3">
+              <h3 className="md:text-2xl text-lg tracking-widest font-medium mb-3">
                 Variations :
               </h3>
-              <ul className="list-disc pl-5 mb-4">
+              <ul className="list-disc text-sm pl-5 mb-4">
                 {renderVariations(
                   recipes.find((recipe) => recipe._id === expandedRecipeId)
                     .variations

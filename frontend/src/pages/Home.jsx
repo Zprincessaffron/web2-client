@@ -36,7 +36,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-40"></div>
         <div className="relative z-10 text-center px-6 md:px-12">
           <motion.h2
-            className="text-3xl md:text-6xl font-extrabold tracking-widest leading-tight mb-4"
+            className="text-3xl md:text-5xl font-medium md:tracking-[8px] tracking-widest leading-tight mb-4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -44,7 +44,7 @@ const Home = () => {
             DISCOVER THE SAFFRON USE CASES
           </motion.h2>
           <motion.p
-            className="text-md md:text-lg font-bold mb-8 max-w-lg mx-auto tracking-widest"
+            className="text-[10px] md:text-[13px] mb-8 max-w-lg mx-auto tracking-[1px]"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
@@ -52,7 +52,7 @@ const Home = () => {
             Explore the endless possibilities and benefits of saffron in your daily life.
           </motion.p>
           <motion.button
-            className="bg-gradient-to-r from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-800 text-white tracking-widest font-bold py-3 px-12 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
+            className="bg-gradient-to-r from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-800 text-white tracking-[3px] md:text-[13px] text-[10px] py-2 px-12 md:py-2 md:px-16 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
             onClick={() => navigate('/use-cases', { state: { user } })}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -83,7 +83,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-50"></div>
         <div className="relative z-10 text-center px-6 md:px-12">
           <motion.h2
-            className="text-4xl md:text-6xl font-extrabold tracking-[14px] leading-tight mb-4"
+            className="text-3xl md:text-5xl font-medium md:tracking-[8px] tracking-widest leading-tight mb-4"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -91,7 +91,7 @@ const Home = () => {
             AI SAFFRON SUGGESTION
           </motion.h2>
           <motion.p
-            className="text-md font-bold tracking-widest md:text-lg mb-8 max-w-lg mx-auto"
+            className="text-[10px] md:text-[13px] mb-8 max-w-lg mx-auto tracking-[2px]"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
@@ -99,7 +99,7 @@ const Home = () => {
             Get personalized saffron recipes and benefits recommendations powered by AI.
           </motion.p>
           <motion.button
-            className="bg-gradient-to-r from-purple-300 to-purple-500 hover:from-purple-400 hover:to-purple-600 text-white tracking-widest font-bold py-3 px-12 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
+            className="bg-gradient-to-r from-purple-300 to-purple-500 hover:from-purple-400 hover:to-purple-600 text-white tracking-[3px] md:text-[13px] text-[12px] py-2 px-12 md:py-2 md:px-16 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
             onClick={() => navigate('/ai-suggestion', { state: { user } })}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -128,7 +128,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-40"></div>
         <div className="relative z-10 text-center px-6 md:px-12">
           <motion.h2
-            className="text-3xl md:text-6xl font-extrabold tracking-[15px] leading-tight mb-4"
+            className="text-3xl md:text-5xl font-medium md:tracking-[8px] tracking-widest leading-tight mb-4"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -136,7 +136,7 @@ const Home = () => {
             Z PRINCESS SAFFRON
           </motion.h2>
           <motion.p
-            className="text-md font-bold tracking-widest md:text-lg mb-8 max-w-lg mx-auto"
+            className="text-[10px] md:text-[13px] mb-8 max-w-lg mx-auto tracking-[2px]"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}

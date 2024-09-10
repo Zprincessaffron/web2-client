@@ -6,6 +6,7 @@ import './index.css'
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://web2-server-rho.vercel.app';
+// http://localhost:5000
 // https://web2-server-rho.vercel.app
 axios.defaults.withCredentials = true;
 

@@ -11,14 +11,14 @@ const UseCases = () => {
     <div className="flex flex-col h-screen">
       {/* Header Section */}
       <motion.section
-        className="relative bg-cover bg-center flex items-center justify-center h-1/3 text-white overflow-hidden"
+        className="relative bg-cover bg-center flex items-center justify-center md:h-1/3 h-[25%] text-white overflow-hidden"
         style={{ backgroundImage: `url(${useCaseImg})` }}
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="absolute inset-0 bg-black opacity-40"></div> {/* Darker Overlay */}
-        <h1 className="relative tracking-[10px] md:text:4xl text-3xl font-extrabold text-center z-10">
+        <div className="absolute inset-0 bg-black opacity-20"></div> {/* Darker Overlay */}
+        <h1 className="relative tracking-[10px] text-3xl md:text-5xl font-medium text-center z-10">
           SAFFRON USE CASES
         </h1>
       </motion.section>
@@ -27,7 +27,7 @@ const UseCases = () => {
       <section className="flex-grow bg-custom-gradient-7 flex items-center justify-center py-8">
         <div className="container mx-auto px-4">
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-10"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -38,8 +38,8 @@ const UseCases = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link to='/culinary' state={{user}}>
-                <h2 className="text-2xl font-bold mb-4 uppercase tracking-widest">Culinary</h2>
-                <p className='tracking-wider font-semibold'>
+                <h2 className="text-lg md:text-2xl font-medium mb-4 uppercase tracking-[5px]">Culinary</h2>
+                <p className='tracking-widest text-[10px] md:text-[12px] '>
                   Explore the culinary uses of saffron in various recipes.
                 </p>
               </Link>
@@ -51,8 +51,8 @@ const UseCases = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link to="/cosmetic" state={{user}}>
-                <h2 className="text-2xl font-bold mb-4 uppercase tracking-widest">Cosmetic</h2>
-                <p className='tracking-wider font-semibold'>
+                <h2 className="text-lg md:text-2xl font-medium mb-4 uppercase tracking-[5px]">Cosmetic</h2>
+                <p className='tracking-widest text-[10px] md:text-[12px]'>
                   Discover saffron's benefits for skin and beauty products.
                 </p>
               </Link>
@@ -64,8 +64,8 @@ const UseCases = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link to="/medicinal" state={{user}}>
-                <h2 className="text-2xl font-bold mb-4 uppercase tracking-widest">Medicinal</h2>
-                <p className='tracking-wider font-semibold'>
+                <h2 className="text-lg md:text-2xl font-medium mb-4 uppercase tracking-[5px]">Medicinal</h2>
+                <p className='tracking-widest text-[10px] md:text-[12px]'>
                   Learn about saffron's medicinal properties and uses.
                 </p>
               </Link>
@@ -77,8 +77,8 @@ const UseCases = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link to="/pregnant-women" state={{user}}>
-                <h2 className="text-2xl font-bold mb-4 uppercase tracking-widest">Pregnancy</h2>
-                <p className='tracking-wider font-semibold'>
+                <h2 className="text-lg md:text-2xl font-medium mb-4 uppercase tracking-[5px]">Pregnancy</h2>
+                <p className='tracking-widest text-[10px] md:text-[12px]'>
                   Find information on saffron use during pregnancy.
                 </p>
               </Link>

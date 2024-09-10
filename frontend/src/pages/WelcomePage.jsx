@@ -76,7 +76,7 @@ const WelcomePage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.1 }}
-                    className="text-purple-500"
+                    className="text-slate-300 uppercase"
                 >
                     {name}
                 </motion.span>
@@ -97,15 +97,15 @@ const WelcomePage = () => {
                 transition={{ duration: 0.6, ease: 'easeOut' }}
                 className="relative z-10 text-center text-white"
             >
-                <h1 className="text-2xl tracking-widest md:text-4xl font-extrabold mb-4">
+                <h1 className="text-2xl tracking-widest md:text-4xl font-medium mb-4">
                     {renderGreeting()}
                 </h1>
-                <p className="text-lg md:text-lg tracking-widest font-semibold">
+                <p className="text-sm md:text-md md:px-20 px-10 tracking-widest mt-8">
                     {splitText(descriptionText)}
                 </p>
                 <button
                     onClick={handleStopAndNavigate}
-                    className="mt-8 px-10 tracking-widest py-3 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white font-semibold rounded-full"
+                    className="mt-8 tracking-[3px]  md:text-[14px] text-[12px] py-2 px-12 md:py-2 md:px-16 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white rounded-full"
                 >
                     Continue to Home
                 </button>

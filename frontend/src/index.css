@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: 'riviera';
-  src: url('../src/font/RivieraNightsTrial-Ultralight/RivieraNightsTrial-Ultralight.otf') format('opentype');
+  src: url('../src/font/RivieraNightsTrial-Ultralight/RivieraNightsTrial-Light.otf') format('opentype');
 }
 
 body {

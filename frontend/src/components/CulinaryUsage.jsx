@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import culinaryImg from '/culinaryImg.jpg'; // Ensure the path is correct
+import culinaryImg from '/useCaseImg.jpg'; // Ensure the path is correct
 
 const cuisines = [
   { name: 'Indian Cuisine', description: 'Explore the rich and diverse flavors of Indian dishes.', route: '/indian-cuisine'},
@@ -27,7 +27,7 @@ const CulinaryUsage = () => {
         transition={{ duration: 0.5 }}
       >
         <div className="absolute inset-0 bg-black opacity-30"></div>
-        <h1 className="relative tracking-widest text-3xl font-extrabold text-center z-10 shadow-md w-full py-20">
+        <h1 className="relative tracking-[10px] text-3xl md:text-5xl font-medium text-center z-10 shadow-md w-full py-20">
           CULINARY USES OF SAFFRON
         </h1>
       </motion.section>
@@ -50,8 +50,8 @@ const CulinaryUsage = () => {
                   className="relative p-8 rounded-full bg-custom-gradient-3 shadow-lg text-center text-white border flex flex-col justify-between overflow-hidden h-full transform hover:scale-105 hover:bg-red-400 hover:text-white hover:shadow-2xl transition-all duration-300 ease-in-out"
                 >
                   <div className="relative z-10">
-                    <h2 className="text-2xl uppercase tracking-widest font-bold mb-4">{cuisine.name}</h2>
-                    <p className=" font-semibold text-sm tracking-wider">{cuisine.description}</p>
+                    <h2 className="text-lg md:text-2xl uppercase tracking-[3px] font-medium mb-4">{cuisine.name}</h2>
+                    <p className="tracking-widest text-[10px] md:text-[12px]">{cuisine.description}</p>
                   </div>
                   <div className="absolute inset-0 opacity-5 bg-black"></div>
                 </Link>

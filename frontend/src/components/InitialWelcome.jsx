@@ -74,7 +74,7 @@ const InitialWelcome = () => {
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 2, ease: "easeOut", delay: 1.5 }}
-          className="text-3xl uppercase md:text-5xl lg:text-6xl font-extrabold tracking-wide md:tracking-[10px] text-white text-shadow-glow text-center"
+          className="text-3xl uppercase md:text-4xl lg:text-5xl font-medium tracking-wide md:tracking-[10px] text-white text-shadow-glow text-center"
         >
           Welcome To Saffron Magic
         </motion.h1>
@@ -84,7 +84,7 @@ const InitialWelcome = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2.5, ease: "easeInOut", delay: 2 }}
-          className="text-md md:text-lg tracking-[6px] font-bold text-white text-center"
+          className="text-sm md:text-md tracking-[6px] font-medium text-white text-center"
         >
           Experience the finest saffron in the world.
         </motion.p>
