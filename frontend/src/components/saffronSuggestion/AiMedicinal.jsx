@@ -3,7 +3,9 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { FaSpinner, FaMicrophone } from "react-icons/fa";
 import Modal from "../../pages/Modal";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import "./Scrollbar.css";
 import { useLocation } from "react-router-dom";
 
@@ -14,8 +16,6 @@ const AiMedicinal = () => {
   const [error, setError] = useState("");
   const [showDetails, setShowDetails] = useState(false);
   const [isListening, setIsListening] = useState(false); // State for listening
-
-  
 
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
 
@@ -42,20 +42,22 @@ const AiMedicinal = () => {
   const location = useLocation();
   const { user } = location.state || {};
   console.log(user);
-  
+
   // Fetch medicinal details
   const handleGetDetails = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("/api/medicinal", { input: searchQuery });
+      const response = await axios.post("/api/medicinal", {
+        input: searchQuery,
+      });
       setDetails(response.data.details);
       setShowDetails(true);
       // Store interaction data
       await axios.post("/api/store-interaction", {
-        userId: user?.uniqueId ,
+        userId: user?.uniqueId,
         itemName: searchQuery,
-        useCase: "Medicinal", 
-        category: "Medicinal Usage", 
+        useCase: "Medicinal",
+        category: "Medicinal Usage",
       });
       setSearchQuery("");
     } catch (error) {
@@ -67,27 +69,80 @@ const AiMedicinal = () => {
 
   // Helper function to parse details
   const parseDetails = (details) => {
-    const lines = details.split("\n");
-    const mechanismIndex = lines.findIndex((line) => line.includes("Mechanism"));
-    const ingredientsIndex = lines.findIndex((line) => line.includes("Ingredients"));
-    const preparationIndex = lines.findIndex((line) => line.includes("Preparation Steps"));
-    const applicationIndex = lines.findIndex((line) => line.includes("Application"));
-    const frequencyIndex = lines.findIndex((line) => line.includes("Frequency"));
-    const saffronDosageIndex = lines.findIndex((line) => line.includes("Saffron Dosage"));
-    const additionalTipsIndex = lines.findIndex((line) => line.includes("Additional Tips"));
+    const lines = details.split("\n").map((line) => line.trim()); // Trim each line
 
-    const mechanism = lines.slice(mechanismIndex + 1, ingredientsIndex).filter((line) => line.trim() !== "");
-    const ingredients = lines.slice(ingredientsIndex + 1, preparationIndex).filter((line) => line.trim() !== "");
-    const preparationSteps = lines.slice(preparationIndex + 1, applicationIndex).filter((line) => line.trim() !== "");
-    const application = lines.slice(applicationIndex + 1, frequencyIndex).filter((line) => line.trim() !== "");
-    const frequency = lines.slice(frequencyIndex + 1, saffronDosageIndex).filter((line) => line.trim() !== "");
-    const saffronDosage = lines.slice(saffronDosageIndex + 1, additionalTipsIndex).filter((line) => line.trim() !== "");
-    const additionalTips = lines.slice(additionalTipsIndex + 1).filter((line) => line.trim() !== "");
+    const findSectionIndex = (sectionName) =>
+      lines.findIndex((line) => line.includes(sectionName));
 
-    return { mechanism, ingredients, preparationSteps, application, frequency, saffronDosage, additionalTips };
+    const nameOfRemedyIndex = findSectionIndex("Name of the Remedy");
+    const mechanismIndex = findSectionIndex("Mechanism");
+    const ingredientsIndex = findSectionIndex("Ingredients");
+    const preparationIndex = findSectionIndex("Preparation Steps");
+    const applicationIndex = findSectionIndex("Application");
+    const frequencyIndex = findSectionIndex("Frequency");
+    const saffronDosageIndex = findSectionIndex("Saffron Dosage");
+    const additionalTipsIndex = findSectionIndex("Additional Tips");
+
+    const getSectionContent = (startIndex, endIndex) => {
+      return lines
+        .slice(startIndex + 1, endIndex)
+        .filter((line) => line.trim() !== "")
+        .join("\n")
+        .trim();
+    };
+
+    // Extract remedy name directly from the line
+    const nameOfRemedy =
+      nameOfRemedyIndex !== -1
+        ? lines[nameOfRemedyIndex].split(":")[1].trim()
+        : "";
+
+    const mechanism =
+      mechanismIndex !== -1
+        ? getSectionContent(mechanismIndex, ingredientsIndex).split("\n")
+        : [];
+    const ingredients =
+      ingredientsIndex !== -1
+        ? getSectionContent(ingredientsIndex, preparationIndex).split("\n")
+        : [];
+    const preparationSteps =
+      preparationIndex !== -1
+        ? getSectionContent(preparationIndex, applicationIndex).split("\n")
+        : [];
+    const application =
+      applicationIndex !== -1
+        ? getSectionContent(applicationIndex, frequencyIndex).split("\n")
+        : [];
+    const frequency =
+      frequencyIndex !== -1
+        ? getSectionContent(frequencyIndex, saffronDosageIndex).split("\n")
+        : [];
+    const saffronDosage =
+      saffronDosageIndex !== -1
+        ? getSectionContent(saffronDosageIndex, additionalTipsIndex).split("\n")
+        : [];
+    const additionalTips =
+      additionalTipsIndex !== -1
+        ? getSectionContent(additionalTipsIndex, lines.length).split("\n")
+        : [];
+
+    return {
+      nameOfRemedy,
+      mechanism,
+      ingredients,
+      preparationSteps,
+      application,
+      frequency,
+      saffronDosage,
+      additionalTips,
+    };
   };
 
+  // Test the output in console
+  // console.log("Name of Remedy:", nameOfRemedy); // Check this value
+
   const {
+    nameOfRemedy = "",
     mechanism = [],
     ingredients = [],
     preparationSteps = [],
@@ -120,7 +175,9 @@ const AiMedicinal = () => {
         {loading && (
           <div className="absolute inset-0 bg-custom-gradient-7 text-white bg-opacity-100 rounded-lg flex justify-center items-center z-50">
             <FaSpinner className="animate-spin text-5xl text-white" />
-            <p className="text-white text-2xl tracking-[7px] font-medium ml-4">Loading...</p>
+            <p className="text-white text-2xl tracking-[7px] font-medium ml-4">
+              Loading...
+            </p>
           </div>
         )}
 
@@ -201,9 +258,17 @@ const AiMedicinal = () => {
               animate="visible"
               transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
             >
+              {nameOfRemedy.length > 0 && (
+                <>
+                  <h3 className="md:text-xl text-[17px] text-white tracking-wider font-medium mb-4">
+                    {nameOfRemedy}
+                  </h3>
+                </>
+              )}
+
               {mechanism.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4">
                     Mechanism :
                   </h3>
                   <ul className="list-disc tracking-wider font-medium mb-6 text-white">
@@ -216,7 +281,7 @@ const AiMedicinal = () => {
 
               {ingredients.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Ingredients :
                   </h3>
                   <ul className="list-disc tracking-wider font-medium mb-6 text-white">
@@ -229,7 +294,7 @@ const AiMedicinal = () => {
 
               {preparationSteps.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Preparation Steps :
                   </h3>
                   <ol className="mb-6 list-disc tracking-wider font-medium text-white">
@@ -242,7 +307,7 @@ const AiMedicinal = () => {
 
               {application.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Application :
                   </h3>
                   <ul className="list-disc tracking-wider font-medium mb-6 text-white">
@@ -255,25 +320,29 @@ const AiMedicinal = () => {
 
               {frequency.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Frequency :
                   </h3>
-                  <p className="text-white tracking-wider font-medium mb-6">{frequency.join(" ")}</p>
+                  <p className="text-white tracking-wider font-medium mb-6">
+                    {frequency.join(" ")}
+                  </p>
                 </>
               )}
 
               {saffronDosage.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Saffron Dosage :
                   </h3>
-                  <p className="text-white tracking-wider font-medium mb-6">{saffronDosage.join(" ")}</p>
+                  <p className="text-white tracking-wider font-medium mb-6">
+                    {saffronDosage.join(" ")}
+                  </p>
                 </>
               )}
 
               {additionalTips.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Additional Tips :
                   </h3>
                   <ul className="list-disc tracking-wider font-medium mb-6 text-white">

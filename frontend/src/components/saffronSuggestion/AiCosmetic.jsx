@@ -64,8 +64,11 @@ const AiCosmetic = () => {
   // Helper function to parse details
   const parseDetails = (details) => {
     const lines = details.split("\n").filter((line) => line.trim() !== "");
+    console.log("Lines:", lines);
   
-    // Find indices of each section header
+    const nameIndex = lines.findIndex((line) =>
+      line.toLowerCase().includes("name of the remedy")
+    );
     const ingredientsIndex = lines.findIndex((line) =>
       line.toLowerCase().includes("ingredients")
     );
@@ -79,7 +82,13 @@ const AiCosmetic = () => {
       line.toLowerCase().includes("frequency")
     );
   
-    // Parse each section, ensuring the indices are valid
+    const name =
+      nameIndex !== -1 && ingredientsIndex !== -1
+        ? lines[nameIndex].replace(/^.*?:\s*/, "").trim()
+        : "";
+  
+    console.log("Extracted Name:", name);
+  
     const ingredients =
       ingredientsIndex !== -1 && preparationIndex !== -1
         ? lines.slice(ingredientsIndex + 1, preparationIndex)
@@ -98,16 +107,23 @@ const AiCosmetic = () => {
     const frequency =
       frequencyIndex !== -1 ? lines.slice(frequencyIndex + 1) : [];
   
-    return { ingredients, preparationSteps, application, frequency };
+    return { name, ingredients, preparationSteps, application, frequency };
   };
+  
   
 
   const {
+    name = '',
     ingredients = [],
     preparationSteps = [],
     application = [],
     frequency = [],
   } = details ? parseDetails(details) : {};
+
+  useEffect(() => {
+    console.log("Details:", details); // Add this line to check the data structure
+  }, [details]);
+  
 
   // Use transcript when it changes
   useEffect(() => {
@@ -213,9 +229,17 @@ const AiCosmetic = () => {
               animate="visible"
               transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
             >
+              {name && (
+                <>
+                  <h3 className="md:text-xl text-white text-[19px] tracking-wider font-medium mb-4">
+                  {name}
+                  </h3>
+                  <p className=""></p>
+                </>
+              )}
               {ingredients.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Ingredients :
                   </h3>
                   <ul className="list-disc tracking-wider font-medium list-inside mb-6 text-white">
@@ -228,7 +252,7 @@ const AiCosmetic = () => {
 
               {preparationSteps.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Preparation Steps :
                   </h3>
                   <ol className="mb-6 list-disc tracking-wider font-medium text-white">
@@ -241,7 +265,7 @@ const AiCosmetic = () => {
 
               {application.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg  tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg  tracking-widest font-medium mb-4 ">
                     Application :
                   </h3>
                   <ul className="list-disc mb-6 tracking-wider font-medium text-white">
@@ -254,7 +278,7 @@ const AiCosmetic = () => {
 
               {frequency.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg  tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg  tracking-widest font-medium mb-4 ">
                     Frequency :
                   </h3>
                   <ul className="list-disc tracking-wider font-medium text-white">

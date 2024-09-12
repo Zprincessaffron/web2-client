@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { FaSpinner, FaMicrophone } from "react-icons/fa";
 import Modal from "../../pages/Modal";
 import aiCulinaryImg from "/aiCulinaryImg.jpg";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import { useLocation } from "react-router-dom";
 
 const AiCulinary = () => {
@@ -17,8 +19,8 @@ const AiCulinary = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [isListening, setIsListening] = useState(false); // Add state for listening
   const location = useLocation();
-  const { user } = location.state || {}
-  console.log(user)
+  const { user } = location.state || {};
+  console.log(user);
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
@@ -50,10 +52,10 @@ const AiCulinary = () => {
       setDetails(null);
       setShowRecommendations(true);
       await axios.post("/api/store-interaction", {
-        userId: user?.uniqueId ,
+        userId: user?.uniqueId,
         recipeName: searchQuery,
-        useCase: "Culinary", 
-        category: "Culinary Recommendation", 
+        useCase: "Culinary",
+        category: "Culinary Recommendation",
       });
     } catch (error) {
       setError(`Error fetching recommendations: ${error.message}`);
@@ -70,10 +72,10 @@ const AiCulinary = () => {
       setDetails(response.data.details);
       setShowDetails(true);
       await axios.post("/api/store-interaction", {
-        userId: user?.uniqueId ,
+        userId: user?.uniqueId,
         recipeName: searchQuery,
-        useCase: "Culinary", 
-        category: "Culinary Dish Details", 
+        useCase: "Culinary",
+        category: "Culinary Dish Details",
       });
     } catch (error) {
       setError(`Error fetching dish details: ${error.message}`);
@@ -86,10 +88,31 @@ const AiCulinary = () => {
   const parseDetails = (details) => {
     const lines = details.split("\n");
 
+    // Log the lines to see the format
+    console.log("Lines:", lines);
+
+    // Extract the dish name
+    const dishNameLine = lines.find((line) =>
+      line.startsWith("**Dish Name:**")
+    );
+    const dishName = dishNameLine
+      ? dishNameLine.replace(/^\*\*Dish Name:\*\*\s*/, "").trim()
+      : "";
+
+    console.log("Extracted Dish Name:", dishName); // Debug log
+
     // Find indices for different sections
-    const ingredientsIndex = lines.findIndex((line) => line.includes("Ingredients"));
-    const preparationIndex = lines.findIndex((line) => line.includes("Preparation Steps"));
-    const tipsIndex = lines.findIndex((line) => line.includes("Tips"));
+    const ingredientsIndex = lines.findIndex((line) =>
+      line.startsWith("**Ingredients:**")
+    );
+    const preparationIndex = lines.findIndex((line) =>
+      line.startsWith("**Preparation Steps:**")
+    );
+    const tipsIndex = lines.findIndex((line) => line.startsWith("**Tips:**"));
+
+    console.log("Ingredients Index:", ingredientsIndex);
+    console.log("Preparation Index:", preparationIndex);
+    console.log("Tips Index:", tipsIndex);
 
     // Default empty arrays
     const ingredients = [];
@@ -98,11 +121,12 @@ const AiCulinary = () => {
 
     // Extract ingredients
     if (ingredientsIndex !== -1) {
-      const nextSectionIndex = preparationIndex !== -1 ? preparationIndex : lines.length;
+      const nextSectionIndex =
+        preparationIndex !== -1 ? preparationIndex : lines.length;
       for (let i = ingredientsIndex + 1; i < nextSectionIndex; i++) {
         const line = lines[i].trim();
-        if (line) {
-          ingredients.push(line);
+        if (line && !line.startsWith("**")) {
+          ingredients.push(line.replace(/^\*\s*/, "")); // Remove bullet points
         }
       }
     }
@@ -112,7 +136,7 @@ const AiCulinary = () => {
       const nextSectionIndex = tipsIndex !== -1 ? tipsIndex : lines.length;
       for (let i = preparationIndex + 1; i < nextSectionIndex; i++) {
         const line = lines[i].trim();
-        if (line) {
+        if (line && !line.startsWith("**")) {
           preparationSteps.push(line);
         }
       }
@@ -122,16 +146,17 @@ const AiCulinary = () => {
     if (tipsIndex !== -1) {
       for (let i = tipsIndex + 1; i < lines.length; i++) {
         const line = lines[i].trim();
-        if (line) {
+        if (line && !line.startsWith("**")) {
           tips.push(line);
         }
       }
     }
 
-    return { ingredients, preparationSteps, tips };
+    return { dishName, ingredients, preparationSteps, tips };
   };
 
   const {
+    dishName = "",
     ingredients = [],
     preparationSteps = [],
     tips = [],
@@ -151,9 +176,7 @@ const AiCulinary = () => {
   };
 
   return (
-    <div
-      className="h-screen text-sm bg-custom-gradient-7 flex flex-col items-center justify-center overflow-x-hidden"
-    >
+    <div className="h-screen text-sm bg-custom-gradient-7 flex flex-col items-center justify-center overflow-x-hidden">
       <div
         className={`relative border rounded-lg md:w-full w-[90%] max-w-4xl ${
           loading ? "border-none shadow-none pointer-events-none" : "shadow-xl"
@@ -162,7 +185,9 @@ const AiCulinary = () => {
         {loading && (
           <div className="absolute inset-0 bg-custom-gradient-7 text-white bg-opacity-100 rounded-lg flex justify-center items-center z-50">
             <FaSpinner className="animate-spin text-5xl text-white" />
-            <p className="text-white text-2xl tracking-[7px] font-medium ml-4">Loading...</p>
+            <p className="text-white text-2xl tracking-[7px] font-medium ml-4">
+              Loading...
+            </p>
           </div>
         )}
 
@@ -272,15 +297,22 @@ const AiCulinary = () => {
             title="Dish Details"
           >
             <motion.div
-              className="bg-custom-gradient-7 p-4 text-white text-sm"
+              className="bg-custom-gradient-7 p-3 text-white text-sm"
               variants={slideInFromRight}
               initial="hidden"
               animate="visible"
               transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
             >
+              {dishName && (
+                <>
+                  <h3 className="md:text-xl text-white text-[19px] tracking-wider font-medium mb-4">
+                  {dishName}
+                  </h3>
+                </>
+              )}
               {ingredients.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Ingredients :
                   </h3>
                   <ul className="list-disc mb-6 tracking-wider text-white font-medium">
@@ -293,7 +325,7 @@ const AiCulinary = () => {
 
               {preparationSteps.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Preparation Steps :
                   </h3>
                   <ol className="mb-6 list-disc tracking-wider text-white font-medium">
@@ -306,7 +338,7 @@ const AiCulinary = () => {
 
               {tips.length > 0 && (
                 <>
-                  <h3 className="md:text-3xl text-lg tracking-widest font-medium mb-4 ">
+                  <h3 className="md:text-xl text-lg tracking-widest font-medium mb-4 ">
                     Tips :
                   </h3>
                   <ul className="list-disc mb-6 tracking-wider text-white font-medium">
