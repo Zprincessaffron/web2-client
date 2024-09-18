@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import mainImg from '/main-1.jpg';
 import secondaryImg from '/mainImg-2.0.jpg';
@@ -10,11 +10,28 @@ const Home = () => {
   const { scrollY } = useScroll();
   const location = useLocation();
   const { user } = location.state || {};
+  const [userIdParams, setUserIdParams] = useState(null);
+  const [demo, setDemo] = useState(false);
   
   // Define scroll-based opacity transformations for each section
   const firstSectionOpacity = useTransform(scrollY, [0, window.innerHeight], [1, 0.5]);
   const secondSectionOpacity = useTransform(scrollY, [window.innerHeight, 2 * window.innerHeight], [1, 0.5]);
   const thirdSectionOpacity = useTransform(scrollY, [2 * window.innerHeight, 3 * window.innerHeight], [1, 0.5]);
+
+  // Extract the query parameters from the URL
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const userIdFromUrl = searchParams.get('userId');
+    const demoFromUrl = searchParams.get('demo') === 'true'; // Check if demo is true
+    
+    if (userIdFromUrl) {
+      setUserIdParams(userIdFromUrl);
+    }
+    setDemo(demoFromUrl);
+
+    // You can add additional verification logic here if needed
+  }, [location.search]);
+
 
   return (
     <div className="flex flex-col">
@@ -53,7 +70,7 @@ const Home = () => {
           </motion.p>
           <motion.button
             className="bg-gradient-to-r from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-800 text-white tracking-[3px] md:text-[13px] text-[10px] py-2 px-12 md:py-2 md:px-16 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
-            onClick={() => navigate('/use-cases', { state: { user } })}
+            onClick={() => navigate('/use-cases', { state: { user, userIdParams , demo } })}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}

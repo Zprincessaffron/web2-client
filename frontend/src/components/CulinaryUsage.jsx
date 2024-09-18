@@ -14,7 +14,7 @@ const cuisines = [
 
 const CulinaryUsage = () => {
   const location = useLocation();
-    const { user } = location.state || {};
+    const { user, userIdParams } = location.state || {};
     console.log(user);
   return (
     <div className="flex flex-col min-h-screen">
@@ -46,7 +46,7 @@ const CulinaryUsage = () => {
               >
                 <Link
                   to={cuisine.route}
-                  state={{user}}
+                  state={{user, userIdParams}}
                   className="relative p-8 rounded-full bg-custom-gradient-3 shadow-lg text-center text-white border flex flex-col justify-between overflow-hidden h-full transform hover:scale-105 hover:bg-red-400 hover:text-white hover:shadow-2xl transition-all duration-300 ease-in-out"
                 >
                   <div className="relative z-10">

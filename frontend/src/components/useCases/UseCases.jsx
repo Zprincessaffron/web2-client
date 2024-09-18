@@ -5,8 +5,8 @@ import useCaseImg from '/useCaseImg-1.jpg';
 
 const UseCases = () => {
     const location = useLocation();
-    const { user } = location.state || {};
-    console.log(user)
+    const { user,userIdParams } = location.state || {};
+    console.log(userIdParams)
   return (
     <div className="flex flex-col h-screen">
       {/* Header Section */}
@@ -37,7 +37,7 @@ const UseCases = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link to='/culinary' state={{user}}>
+              <Link to='/culinary' state={{user, userIdParams}}>
                 <h2 className="text-lg md:text-2xl font-medium mb-4 uppercase tracking-[5px]">Culinary</h2>
                 <p className='tracking-widest text-[10px] md:text-[12px] '>
                   Explore the culinary uses of saffron in various recipes.

@@ -15,8 +15,7 @@ const UniqueIdForm = () => {
 
   // Registration form states
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [contact, setContact] = useState(""); 
   const [password, setPassword] = useState("");
   const [purchasedSite, setPurchasedSite] = useState("");
 
@@ -67,21 +66,19 @@ const UniqueIdForm = () => {
   const handleSubmitRegistration = async (e) => {
     e.preventDefault();
 
-    if (!email && !phone) {
-      toast.error("Please provide either an email or phone number.");
+    if (!contact) {
+      toast.error("Please provide your email or phone number.");
       return;
     }
 
     try {
       const response = await axios.post("/api/register", {
         name,
-        email,
-        phone,
+        contact,
         password,
         purchasedSite,
       });
 
-      // Assuming the backend sends a message field
       if (response.status === 201) {
         toast.success(
           "Registration successful! An OTP has been sent to your email/phone."
@@ -91,7 +88,7 @@ const UniqueIdForm = () => {
         toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
-      console.error("Registration error:", error); // Log error details for debugging
+      console.error("Registration error:", error);
       toast.error("Registration failed. Please try again.");
     }
   };
@@ -252,7 +249,7 @@ const UniqueIdForm = () => {
                     </h2>
                     <form
                       onSubmit={handleSubmitRegistration}
-                      className="w-full max-w-4xl "
+                      className="w-full max-w-4xl"
                     >
                       <div className="relative mb-4">
                         <label
@@ -273,37 +270,19 @@ const UniqueIdForm = () => {
                       </div>
                       <div className="relative mb-4">
                         <label
-                          htmlFor="email"
+                          htmlFor="contact"
                           className="block text-sm tracking-wider font-medium text-gray-700"
                         >
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
-                          placeholder="Your Email Address"
-                        />
-                      </div>
-                      <div className="text-sm tracking-wider font-medium text-gray-700 text-center">
-                        - or -
-                      </div>
-                      <div className="relative mb-4">
-                        <label
-                          htmlFor="phone"
-                          className="block text-sm tracking-wider font-medium text-gray-700"
-                        >
-                          Phone
+                          Email or Phone
                         </label>
                         <input
                           type="text"
-                          id="phone"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
+                          id="contact"
+                          value={contact}
+                          onChange={(e) => setContact(e.target.value)}
                           className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
-                          placeholder="Your Phone Number"
+                          placeholder="Your Email Address or Phone Number"
+                          required
                         />
                       </div>
                       <div className="relative mb-4">
