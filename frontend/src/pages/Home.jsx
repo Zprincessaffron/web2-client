@@ -4,13 +4,15 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import mainImg from '/main-1.jpg';
 import secondaryImg from '/mainImg-2.0.jpg';
 import siteImg from '/main-3.jpg';
+import axios from 'axios';
 
 const Home = () => {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
   const location = useLocation();
   const { user } = location.state || {};
-  const [userIdParams, setUserIdParams] = useState(null);
+  const [userIdParams, setUserIdParams] = useState();
+  const [isValidUser, setIsValidUser] = useState(null); 
   const [demo, setDemo] = useState(false);
   
   // Define scroll-based opacity transformations for each section
@@ -18,19 +20,44 @@ const Home = () => {
   const secondSectionOpacity = useTransform(scrollY, [window.innerHeight, 2 * window.innerHeight], [1, 0.5]);
   const thirdSectionOpacity = useTransform(scrollY, [2 * window.innerHeight, 3 * window.innerHeight], [1, 0.5]);
 
+  // Function to verify userId by calling backend API
+
+  const verifyUser = async (userIdParams) => {
+    console.log(userIdParams)
+    try {
+      const response = await axios.get(`/api/verify-user/${userIdParams}`);
+      setIsValidUser(response.data.valid);
+    } catch (error) {
+      console.error('Error verifying user ID:', error);
+      setIsValidUser(false);
+    }
+  };
+
+
   // Extract the query parameters from the URL
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const userIdFromUrl = searchParams.get('userId');
     const demoFromUrl = searchParams.get('demo') === 'true'; // Check if demo is true
-    
+
     if (userIdFromUrl) {
       setUserIdParams(userIdFromUrl);
+      verifyUser(userIdFromUrl); 
     }
     setDemo(demoFromUrl);
 
     // You can add additional verification logic here if needed
   }, [location.search]);
+
+   // Show loading only in demo mode while verifying user
+   if (demo && isValidUser === null) {
+    return <div>Loading...</div>; // Show a loading state until userId is verified
+  }
+
+  // Handle case for invalid user in demo mode
+  if (demo && !isValidUser) {
+    return <div>User not found or invalid user ID</div>; // Show error if user is invalid
+  }
 
 
   return (
@@ -117,7 +144,7 @@ const Home = () => {
           </motion.p>
           <motion.button
             className="bg-gradient-to-r from-purple-300 to-purple-500 hover:from-purple-400 hover:to-purple-600 text-white tracking-[3px] md:text-[13px] text-[12px] py-2 px-12 md:py-2 md:px-16 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105"
-            onClick={() => navigate('/ai-suggestion', { state: { user } })}
+            onClick={() => navigate('/ai-suggestion', { state: { user, userIdParams , demo  } })}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}

@@ -12,8 +12,8 @@ import axios from 'axios';
 
 // Set axios base URL based on environment
 axios.defaults.baseURL = import.meta.env.VITE_APP_NODE_ENV === "development"
-  ? "http://localhost:5000"
-  : "http://localhost:5000";
+  ? "http://localhost:8080"
+  : "http://3.91.104.175:8080";
 
 axios.defaults.withCredentials = true;
 
@@ -21,8 +21,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <App />
 );
 
-
-
-
-// http://localhost:5000
-// https://web2-server-rho.vercel.app

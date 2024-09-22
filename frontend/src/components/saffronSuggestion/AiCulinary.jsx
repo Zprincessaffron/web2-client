@@ -8,6 +8,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useLocation } from "react-router-dom";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const AiCulinary = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,9 +19,11 @@ const AiCulinary = () => {
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [isListening, setIsListening] = useState(false); // Add state for listening
+  const [credits, setCredits] = useState();
   const location = useLocation();
-  const { user } = location.state || {};
-  console.log(user);
+  const { user,userIdParams } = location.state || {};
+  console.log(userIdParams);
+
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
@@ -42,6 +45,22 @@ const AiCulinary = () => {
     }
     setIsListening(!isListening); // Toggle listening state
   };
+
+  useEffect(() => {
+    // Fetch user credits from the backend
+    const fetchCredits = async () => {
+      try {
+        const response = await axios.get(`/api/user-credits/${userIdParams}`);
+        setCredits(response.data.credits || 0); // Default to 0 if no credits found
+      } catch (error) {
+        setError(`Error fetching credits: ${error.message}`);
+      }
+    };
+
+    if (userIdParams) {
+      fetchCredits();
+    }
+  }, [userIdParams]);
 
   // Fetch dish recommendations
   const handleRecommendations = async () => {
@@ -66,22 +85,67 @@ const AiCulinary = () => {
 
   // Fetch dish details
   const handleDetails = async (dish) => {
+    // Check if user has credits left
+    if (credits <= 0) {
+      // setShowCreditLimitPopup(true); // Show popup if no credits left
+      setModalMessage(
+        "To gain full access on our platform, you need to purchase a product. Once your order is delivered, you will receive a unique access ID along with a QR code in your shipment box. By scanning the QR code and entering your unique access ID on the site, you will unlock comprehensive access to our entire platform. Currently, you are in demo mode, which limits your access to certain features and content."
+      );
+      setIsModalOpen(true); // Open the modal when credits are 0
+      return; // Stop further execution if credits are 0
+    }
+
     setLoading(true);
     try {
       const response = await axios.post("/api/culinary/details", { dish });
       setDetails(response.data.details);
       setShowDetails(true);
+
+      // Deduct 1 credit after a successful request
+      const newCredits = credits - 1;
+      setCredits(newCredits);
+
+      // Update credits on the backend
+      await axios.post("/api/update-credits", {
+        userId: userIdParams,
+        credits: newCredits
+      });
+
       await axios.post("/api/store-interaction", {
         userId: user?.uniqueId,
         recipeName: searchQuery,
         useCase: "Culinary",
         category: "Culinary Dish Details",
       });
+      setSearchQuery("");
     } catch (error) {
       setError(`Error fetching dish details: ${error.message}`);
     } finally {
       setLoading(false);
     }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
+  const AIModal = ({ isOpen, onClose, message }) => {
+    if (!isOpen) return null;
+  
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+      <div className="bg-custom-gradient-7 p-8 rounded-lg shadow-lg md:w-full w-[90%] max-w-lg relative">
+      <button
+          onClick={onClose}
+          className="absolute top-1 right-1 p-2 rounded-full text-white hover:text-gray-200 transition-colors"
+          aria-label="Close"
+        >
+          <IoIosCloseCircleOutline size={18}/>
+          {/* <XIcon className="w-6 h-6 text-gray-600" /> */}
+        </button>
+        <p className="md:text-[15px] text-[13px] tracking-wider text-white">{message}</p>
+      </div>
+    </div>
+    );
   };
 
   // Parse details into ingredients, preparation steps, and tips
@@ -177,6 +241,12 @@ const AiCulinary = () => {
 
   return (
     <div className="h-screen text-sm bg-custom-gradient-7 flex flex-col items-center justify-center overflow-x-hidden">
+      {/* Show credits for users */}
+      {userIdParams && (
+        <div className="absolute text-[13px] tracking-wider top-4 right-4 text-white font-medium border p-2">
+          Credits Left: {credits}
+        </div>
+      )}
       <div
         className={`relative border rounded-lg md:w-full w-[90%] max-w-4xl ${
           loading ? "border-none shadow-none pointer-events-none" : "shadow-xl"
@@ -351,6 +421,11 @@ const AiCulinary = () => {
             </motion.div>
           </Modal>
         )}
+        <AIModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        message={modalMessage}
+        />
       </div>
     </div>
   );

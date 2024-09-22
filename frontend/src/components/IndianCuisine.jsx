@@ -236,28 +236,29 @@ const IndianCuisine = () => {
     );
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
   const Modal = ({ isOpen, onClose, message }) => {
     if (!isOpen) return null;
   
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-70">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg relative">
-        <button
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+      <div className="bg-custom-gradient-9 p-8 rounded-lg shadow-lg md:w-full w-[90%] max-w-lg relative">
+      <button
           onClick={onClose}
-          className="absolute top-2 right-2 p-2 rounded-full hover:bg-gray-300 transition-colors"
+          className="absolute top-1 right-1 p-2 rounded-full text-white hover:text-gray-200 transition-colors"
           aria-label="Close"
         >
-          <IoIosCloseCircleOutline/>
+          <IoIosCloseCircleOutline size={18}/>
           {/* <XIcon className="w-6 h-6 text-gray-600" /> */}
         </button>
-        <p className="text-md tracking-wider text-gray-700">{message}</p>
+        <p className="md:text-[15px] text-[13px] tracking-wider text-white">{message}</p>
       </div>
     </div>
     );
   };
   
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
 
   const handleClick = (recipeId, index) => {
     if (!userIdParams || index <= 2) {

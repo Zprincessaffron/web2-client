@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 const AiSuggestion = () => {
   const [showOptions, setShowOptions] = useState(false);
   const location = useLocation();
-    const { user } = location.state || {};
+    const { user, userIdParams } = location.state || {};
+    console.log(userIdParams);
 
   // Define the speak function outside of the useEffect hooks
   const speak = (text, onEndCallback) => {
@@ -61,7 +62,7 @@ const AiSuggestion = () => {
       >
         <div className="relative z-10 text-center px-6 md:px-12">
           <motion.h2
-            className="text-3xl md:text-6xl uppercase font-medium tracking-[15px] leading-tight mb-5"
+            className="text-3xl md:text-5xl uppercase font-medium tracking-[15px] leading-tight mb-5"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -90,7 +91,7 @@ const AiSuggestion = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link to={`/ai-${option.toLowerCase()}`} state={{user}}>
+                  <Link to={`/ai-${option.toLowerCase()}`} state={{user, userIdParams}}>
                     <p className="text-md tracking-widest font-medium">{option}</p>
                   </Link>
                 </motion.div>

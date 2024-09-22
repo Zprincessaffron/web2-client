@@ -8,6 +8,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import "./Scrollbar.css";
 import { useLocation } from "react-router-dom";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const AiMedicinal = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,6 +17,10 @@ const AiMedicinal = () => {
   const [error, setError] = useState("");
   const [showDetails, setShowDetails] = useState(false);
   const [isListening, setIsListening] = useState(false); // State for listening
+  const [credits, setCredits] = useState();
+  const location = useLocation();
+  const { user, userIdParams } = location.state || {};
+  console.log(userIdParams);
 
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
 
@@ -39,12 +44,35 @@ const AiMedicinal = () => {
     setIsListening(!isListening); // Toggle listening state
   };
 
-  const location = useLocation();
-  const { user } = location.state || {};
-  console.log(user);
+
+  useEffect(() => {
+    // Fetch user credits from the backend
+    const fetchCredits = async () => {
+      try {
+        const response = await axios.get(`/api/user-credits/${userIdParams}`);
+        setCredits(response.data.credits || 0); // Default to 0 if no credits found
+      } catch (error) {
+        setError(`Error fetching credits: ${error.message}`);
+      }
+    };
+
+    if (userIdParams) {
+      fetchCredits();
+    }
+  }, [userIdParams]);
 
   // Fetch medicinal details
   const handleGetDetails = async () => {
+    // Check if user has credits left
+    if (credits <= 0) {
+      // setShowCreditLimitPopup(true); // Show popup if no credits left
+      setModalMessage(
+        "To gain full access on our platform, you need to purchase a product. Once your order is delivered, you will receive a unique access ID along with a QR code in your shipment box. By scanning the QR code and entering your unique access ID on the site, you will unlock comprehensive access to our entire platform. Currently, you are in demo mode, which limits your access to certain features and content."
+      );
+      setIsModalOpen(true); // Open the modal when credits are 0
+      return; // Stop further execution if credits are 0
+    }
+
     setLoading(true);
     try {
       const response = await axios.post("/api/medicinal", {
@@ -52,6 +80,18 @@ const AiMedicinal = () => {
       });
       setDetails(response.data.details);
       setShowDetails(true);
+
+      // Deduct 1 credit after a successful request
+      const newCredits = credits - 1;
+      setCredits(newCredits);
+
+      // Update credits on the backend
+      await axios.post("/api/update-credits", {
+        userId: userIdParams,
+        credits: newCredits
+      });
+
+
       // Store interaction data
       await axios.post("/api/store-interaction", {
         userId: user?.uniqueId,
@@ -65,6 +105,29 @@ const AiMedicinal = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
+  const AIModal = ({ isOpen, onClose, message }) => {
+    if (!isOpen) return null;
+  
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+      <div className="bg-custom-gradient-7 p-8 rounded-lg shadow-lg md:w-full w-[90%] max-w-lg relative">
+      <button
+          onClick={onClose}
+          className="absolute top-1 right-1 p-2 rounded-full text-white hover:text-gray-200 transition-colors"
+          aria-label="Close"
+        >
+          <IoIosCloseCircleOutline size={18}/>
+          {/* <XIcon className="w-6 h-6 text-gray-600" /> */}
+        </button>
+        <p className="md:text-[15px] text-[13px] tracking-wider text-white">{message}</p>
+      </div>
+    </div>
+    );
   };
 
   // Helper function to parse details
@@ -167,6 +230,12 @@ const AiMedicinal = () => {
 
   return (
     <div className="h-screen bg-custom-gradient-7 flex flex-col items-center justify-center overflow-x-hidden">
+      {/* Show credits for users */}
+      {userIdParams && (
+        <div className="absolute text-[13px] tracking-wider top-4 right-4 text-white font-medium border p-2">
+          Credits Left: {credits}
+        </div>
+      )}
       <div
         className={`relative border rounded-lg md:w-full w-[90%] max-w-4xl ${
           loading ? "border-none shadow-none pointer-events-none" : "shadow-xl"
@@ -355,6 +424,11 @@ const AiMedicinal = () => {
             </motion.div>
           </Modal>
         )}
+        <AIModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        message={modalMessage}
+        />
       </div>
     </div>
   );

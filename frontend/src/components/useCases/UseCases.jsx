@@ -50,7 +50,7 @@ const UseCases = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link to="/cosmetic" state={{user}}>
+              <Link to="/cosmetic" state={{user, userIdParams}}>
                 <h2 className="text-lg md:text-2xl font-medium mb-4 uppercase tracking-[5px]">Cosmetic</h2>
                 <p className='tracking-widest text-[10px] md:text-[12px]'>
                   Discover saffron's benefits for skin and beauty products.
@@ -63,7 +63,7 @@ const UseCases = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link to="/medicinal" state={{user}}>
+              <Link to="/medicinal" state={{user, userIdParams}}>
                 <h2 className="text-lg md:text-2xl font-medium mb-4 uppercase tracking-[5px]">Medicinal</h2>
                 <p className='tracking-widest text-[10px] md:text-[12px]'>
                   Learn about saffron's medicinal properties and uses.
@@ -76,7 +76,7 @@ const UseCases = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link to="/pregnant-women" state={{user}}>
+              <Link to="/pregnant-women" state={{user, userIdParams}}>
                 <h2 className="text-lg md:text-2xl font-medium mb-4 uppercase tracking-[5px]">Pregnancy</h2>
                 <p className='tracking-widest text-[10px] md:text-[12px]'>
                   Find information on saffron use during pregnancy.
